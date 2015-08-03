@@ -19,8 +19,8 @@ class PhotoVC: UIViewController, UIScrollViewDelegate {
     private(set) var previousScrollViewYOffset: CGFloat = 0
     var api: APIController!
     
-    //var images = [Images]()
-    var images = ["1nearby.PNG", "JAkdhtLysS8.jpg", "temp..hhfnftwq.png", "FullSizeRender.jpg","BJ8vlACPzIE.jpg"]
+    var images = [Images]()
+    //var images = ["1nearby.PNG", "JAkdhtLysS8.jpg", "temp..hhfnftwq.png", "FullSizeRender.jpg","BJ8vlACPzIE.jpg"]
     override func viewDidLoad() {
         super.viewDidLoad()
         newPhoto.setup()
@@ -32,6 +32,10 @@ class PhotoVC: UIViewController, UIScrollViewDelegate {
         cellLayout.itemSize = CGSize(width: cellWidth, height: cellWidth)
         
         collectionView!.registerNib(UINib(nibName: "PhotoCollectionView", bundle: NSBundle.mainBundle()), forCellWithReuseIdentifier: reuseIdentifier)
+        let tabBar = self.tabBarController?.tabBar;
+        tabBar?.barTintColor = UIColor.MKColor.Teal
+        tabBar?.tintColor = UIColor.whiteColor()
+        newPhoto.tintColor = UIColor.whiteColor()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -76,29 +80,7 @@ class PhotoVC: UIViewController, UIScrollViewDelegate {
     func scrollViewDidScroll(scrollView: UIScrollView) {
         var bounds = UIScreen.mainScreen().bounds
         var heightOfTabBar = self.tabBarController?.tabBar.frame.height
-        if(scrollView.contentOffset.y > 100 && scrollView.contentOffset.y < 1500) {
-            if(scrollView.contentOffset.y < previousTableViewYOffset)
-            {
-                UIView.animateWithDuration(0.3, delay: 0, options: .CurveEaseOut, animations: {
-                    self.tabBarController?.tabBar.frame.origin.y = CGFloat(bounds.height) - CGFloat(heightOfTabBar!)
-                    self.newPhoto.alpha = 1
-                    }, completion: { finished in
-                })
-            }else{
-                
-                UIView.animateWithDuration(0.3, delay: 0, options: .CurveEaseOut, animations: {
-                    self.tabBarController?.tabBar.frame.origin.y = bounds.height
-                    self.newPhoto.alpha = 0
-                    }, completion: { finished in
-                })
-            }
-        }else
-        {
-            UIView.animateWithDuration(0.3, delay: 0, options: .CurveEaseOut, animations: {
-                self.tabBarController?.tabBar.frame.origin.y=bounds.height - CGFloat(heightOfTabBar!)
-                }, completion: { finished in
-            })
-        }
+        
         
         let currentOffset = scrollView.contentOffset.y
         let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
@@ -106,8 +88,11 @@ class PhotoVC: UIViewController, UIScrollViewDelegate {
         
         
         var frame: CGRect = self.navigationController!.navigationBar.frame
+        var frameOfTabBar: CGRect = self.tabBarController!.tabBar.frame
         var size:CGFloat = frame.size.height - 21
-        var sizeT:CGFloat = self.navigationController!.toolbar.frame.origin.y - 64
+
+        var sizeT:CGFloat = CGFloat(bounds.height)
+        
         var framePercentageHidden:CGFloat = ((20 - frame.origin.y) / (frame.size.height - 1))
         var scrollOffset:CGFloat = scrollView.contentOffset.y
         var scrollDiff:CGFloat = scrollOffset - self.previousScrollViewYOffset
@@ -116,17 +101,31 @@ class PhotoVC: UIViewController, UIScrollViewDelegate {
         
         if (scrollOffset <= -scrollView.contentInset.top) {
             frame.origin.y = 20;
-            //toolbarFrame.origin.y = sizeT
-            //println("top yetende")
+            //frameOfTabBar.origin.y = sizeT
+            
+            UIView.animateWithDuration(0.3, delay: 0, options: .CurveEaseOut, animations: {
+                self.newPhoto.alpha = 1
+                }, completion: { finished in
+            })
         } else if ((scrollOffset + scrollHeight) >= scrollContentSizeHeight) {
             frame.origin.y = -size;
-            //toolbarFrame.origin.y = sizeT
-            //println("down yetende")
+            frameOfTabBar.origin.y = sizeT - CGFloat(heightOfTabBar!)
+            
+            UIView.animateWithDuration(0.3, delay: 0, options: .CurveEaseOut, animations: {
+                self.newPhoto.alpha = 1
+                }, completion: { finished in
+            })
         } else {
             frame.origin.y = min(20, max(-size, frame.origin.y - scrollDiff))
-            //println("down")
+    
+            frameOfTabBar.origin.y = max(sizeT - CGFloat(heightOfTabBar!), min(sizeT, frameOfTabBar.origin.y + scrollDiff))
+            UIView.animateWithDuration(0.3, delay: 0, options: .CurveEaseOut, animations: {
+                //self.tabBarController?.tabBar.frame.origin.y = bounds.height
+                self.newPhoto.alpha = 0
+                }, completion: { finished in
+            })
         }
-        
+        self.tabBarController?.tabBar.frame = frameOfTabBar
         self.navigationController?.navigationBar.frame = frame
         self.updateBarButtonItems(1 - framePercentageHidden)
         self.previousScrollViewYOffset = scrollOffset
@@ -182,17 +181,11 @@ extension PhotoVC: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! PhotoCollectionViewCell
-        //var image = self.images[indexPath.row]
-        
-        //var scaleFactor = CGFloat(image.width) / cell.cellImage.bounds.width
-        //var newHeight = CGFloat(image.height) * scaleFactor
-        
-        //cell.cellImage.frame.size.height = newHeight
-        
-        //cell.cellImage.sd_setImageWithURL(NSURL(string: image.image_url))
-        //cell.cellTitle.text = image.image
-        
-        cell.cellImage.image = UIImage(named: images[indexPath.row])
+        var image = self.images[indexPath.row]
+
+        cell.cellImage.setImageWithURL(NSURL(string: image.image_url), usingActivityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+        cell.cellTitle.text = image.image
+
         return cell
     }
     
@@ -204,12 +197,11 @@ extension PhotoVC : UICollectionViewDelegateFlowLayout {
         var image = self.images[indexPath.row]
         var cell = NSBundle.mainBundle().loadNibNamed("PhotoCollectionView", owner: self, options: nil)[0] as? PhotoCollectionViewCell
         
-       // var scaleFactor = targetWidth / CGFloat(image.width)
-        //var newHeight = CGFloat(image.height) * scaleFactor
-        //var newWidth = CGFloat(image.width) * scaleFactor
-        var img = imageWithImage(UIImage(named: images[indexPath.row])!, i_width: targetWidth) as UIImage
-        var size = CGSize(width: img.size.width, height: img.size.height)
-        
+        var scaleFactor = targetWidth / CGFloat(image.width)
+        var newHeight = CGFloat(image.height) * scaleFactor
+        var newWidth = CGFloat(image.width) * scaleFactor
+        var size = CGSize(width: newWidth, height: newHeight)
+
         return size
     }
 }
@@ -217,7 +209,7 @@ extension PhotoVC : UICollectionViewDelegateFlowLayout {
 extension PhotoVC: APIProtocol {
     func success(success: Bool, resultsArr:NSArray?, results:NSDictionary?) {
         if success {
-            //self.images = Images.ImagesWithJSON(resultsArr!)
+            self.images = Images.ImagesWithJSON(resultsArr!)
             self.collectionView.reloadData()
         }
     }
@@ -227,7 +219,6 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var cellImage: UIImageView!
     @IBOutlet weak var cellTitle: UILabel!
-    
     
     override func awakeFromNib() {
         super.awakeFromNib()

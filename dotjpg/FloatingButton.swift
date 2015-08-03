@@ -29,7 +29,7 @@ class FloatingButton: UIButton {
     func setup() {
         tintColor = UIColor.whiteColor()
         if backgroundImageForState(.Normal) == nil {
-            setBackgroundImage(UIColor.MKColor.Orange.pixelImage, forState: .Normal)
+            setBackgroundImage(UIColor.MKColor.Teal.pixelImage, forState: .Normal)
         }
         
         layer.cornerRadius = frame.width/2

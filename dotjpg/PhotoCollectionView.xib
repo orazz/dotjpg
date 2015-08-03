@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -16,6 +15,7 @@
                 <subviews>
                     <imageView userInteractionEnabled="NO" tag="11" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bmg-r4-JCR">
                         <rect key="frame" x="0.0" y="0.0" width="442" height="342"/>
+                        <color key="backgroundColor" red="0.89455097853535359" green="0.89455097853535359" blue="0.89455097853535359" alpha="1" colorSpace="calibratedRGB"/>
                     </imageView>
                     <view tag="22" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bhk-YD-AV4" userLabel="Footer View">
                         <rect key="frame" x="0.0" y="342" width="442" height="35"/>
