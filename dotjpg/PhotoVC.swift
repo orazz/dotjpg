@@ -14,16 +14,20 @@ class PhotoVC: UIViewController, UIScrollViewDelegate {
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var newPhoto: FloatingButton!
+    @IBOutlet weak var activityIndicator: KMActivityIndicator!
+    @IBOutlet weak var loadinLbl: UILabel!
     
-    var previousTableViewYOffset : CGFloat?
+    private(set) var previousTableViewYOffset : CGFloat?
     private(set) var previousScrollViewYOffset: CGFloat = 0
     var api: APIController!
-    
     var images = [Images]()
-    //var images = ["1nearby.PNG", "JAkdhtLysS8.jpg", "temp..hhfnftwq.png", "FullSizeRender.jpg","BJ8vlACPzIE.jpg"]
+    var bounds = UIScreen.mainScreen().bounds
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        //self.navigationController?.navigationBar.translucent = true
         newPhoto.setup()
+        activityIndicator.startAnimating()
         self.api = APIController()
         self.api.delegate = self
         self.api.clientRequest(["controller":"image", "action":"getAllSpecial", "page":0], objectForKey: "data")
@@ -36,11 +40,26 @@ class PhotoVC: UIViewController, UIScrollViewDelegate {
         tabBar?.barTintColor = UIColor.MKColor.Teal
         tabBar?.tintColor = UIColor.whiteColor()
         newPhoto.tintColor = UIColor.whiteColor()
+        navigationItem.title = "POPULAR"
+        var exampleImage = UIImage(named: "Icon1")?.imageWithRenderingMode(.AlwaysTemplate)
+        newPhoto.setImage(exampleImage, forState: UIControlState.Normal)
+        newPhoto.tintColor = UIColor.whiteColor()
     }
-    
+
+    /*
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        self.navigationController!.navigationBar.barStyle = UIBarStyle.Black
+        self.navigationController?.navigationBar.translucent = true
+        UIApplication.sharedApplication().statusBarHidden=false
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController!.navigationBar.barStyle = UIBarStyle.Black
+        self.navigationController?.navigationBar.translucent = true
+        UIApplication.sharedApplication().statusBarHidden=false
+    }*/
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -60,27 +79,13 @@ class PhotoVC: UIViewController, UIScrollViewDelegate {
         return scaledImage
     }
     
-    func imageWithImage(sourceImage: UIImage, i_width:CGFloat) -> UIImage {
-        var oldWidth = sourceImage.size.width
-        var scaleFactor = i_width / oldWidth
-        var newHeight = sourceImage.size.height * scaleFactor
-        var newWidth = oldWidth * scaleFactor
-        
-        UIGraphicsBeginImageContext(CGSizeMake(newWidth, newHeight))
-        sourceImage.drawInRect(CGRectMake(0, 0, newWidth, newHeight))
-        var newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return newImage
-    }
-    
     func scrollViewWillBeginDragging(scrollView: UIScrollView) {
         previousTableViewYOffset = scrollView.contentOffset.y
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        var bounds = UIScreen.mainScreen().bounds
-        var heightOfTabBar = self.tabBarController?.tabBar.frame.height
         
+        var heightOfTabBar = self.tabBarController?.tabBar.frame.height
         
         let currentOffset = scrollView.contentOffset.y
         let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
@@ -101,8 +106,6 @@ class PhotoVC: UIViewController, UIScrollViewDelegate {
         
         if (scrollOffset <= -scrollView.contentInset.top) {
             frame.origin.y = 20;
-            //frameOfTabBar.origin.y = sizeT
-            
             UIView.animateWithDuration(0.3, delay: 0, options: .CurveEaseOut, animations: {
                 self.newPhoto.alpha = 1
                 }, completion: { finished in
@@ -120,7 +123,6 @@ class PhotoVC: UIViewController, UIScrollViewDelegate {
     
             frameOfTabBar.origin.y = max(sizeT - CGFloat(heightOfTabBar!), min(sizeT, frameOfTabBar.origin.y + scrollDiff))
             UIView.animateWithDuration(0.3, delay: 0, options: .CurveEaseOut, animations: {
-                //self.tabBarController?.tabBar.frame.origin.y = bounds.height
                 self.newPhoto.alpha = 0
                 }, completion: { finished in
             })
@@ -144,6 +146,7 @@ class PhotoVC: UIViewController, UIScrollViewDelegate {
     
     func stoppedScrolling(){
         var frame = self.navigationController?.navigationBar.frame
+        self.tabBarController?.tabBar.frame.origin.y = CGFloat(bounds.height) - self.tabBarController!.tabBar.frame.height
         if(frame?.origin.y < 20){
             var height = frame?.size.height
             self.animateNavBarTo(height! - 24)
@@ -184,9 +187,23 @@ extension PhotoVC: UICollectionViewDataSource, UICollectionViewDelegate {
         var image = self.images[indexPath.row]
 
         cell.cellImage.setImageWithURL(NSURL(string: image.image_url), usingActivityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
-        cell.cellTitle.text = image.image
-
+        var title = image.image.componentsSeparatedByString(".")
+        cell.cellTitle.text = (title.count > 0) ? title[0] : ""
+        var time: NSTimeInterval = NSTimeInterval(image.timestamp)
+        cell.cellDate.text = "\(NSDate(timeIntervalSince1970: time).relativeTime)"
         return cell
+    }
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        self.stoppedScrolling()
+        
+        if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? PhotoCollectionViewCell {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            var viewPhoto = self.storyboard?.instantiateViewControllerWithIdentifier("ViewPhotoVC") as! ViewPhotoVC
+            viewPhoto.image = cell.cellImage.image
+            viewPhoto.images = [images[indexPath.row]]
+            self.navigationController?.pushViewController(viewPhoto, animated: true)
+        }
     }
     
 }
@@ -211,6 +228,8 @@ extension PhotoVC: APIProtocol {
         if success {
             self.images = Images.ImagesWithJSON(resultsArr!)
             self.collectionView.reloadData()
+            activityIndicator.stopAnimating()
+            loadinLbl.hidden = true
         }
     }
 }
@@ -219,6 +238,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var cellImage: UIImageView!
     @IBOutlet weak var cellTitle: UILabel!
+    @IBOutlet weak var cellDate: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -30,22 +30,40 @@
                             <rect key="frame" x="0.0" y="0.0" width="442" height="40"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="username" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AP2-0K-Veg">
-                                    <rect key="frame" x="8" y="0.0" width="428" height="40"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="username" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AP2-0K-Veg">
+                                    <rect key="frame" x="8" y="0.0" width="220" height="40"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="40" id="rsx-gT-th8"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="username" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yno-Ff-EXL">
+                                    <rect key="frame" x="245" y="0.0" width="189" height="40"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="40" id="LDO-Ka-Hip"/>
+                                        <constraint firstAttribute="width" constant="189" id="zmq-fB-d7s"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
                             <constraints>
                                 <constraint firstItem="AP2-0K-Veg" firstAttribute="top" secondItem="4ac-h7-dBj" secondAttribute="top" id="10B-o8-QEp"/>
+                                <constraint firstItem="Yno-Ff-EXL" firstAttribute="baseline" secondItem="AP2-0K-Veg" secondAttribute="baseline" id="N5m-W3-O64"/>
                                 <constraint firstItem="AP2-0K-Veg" firstAttribute="leading" secondItem="4ac-h7-dBj" secondAttribute="leadingMargin" id="NCW-68-qqw"/>
                                 <constraint firstAttribute="trailing" secondItem="AP2-0K-Veg" secondAttribute="trailing" constant="6" id="QxP-Dg-Bqu"/>
+                                <constraint firstItem="Yno-Ff-EXL" firstAttribute="leading" secondItem="AP2-0K-Veg" secondAttribute="trailing" constant="17" id="p0f-uH-Fwc"/>
                                 <constraint firstAttribute="bottom" secondItem="AP2-0K-Veg" secondAttribute="bottom" id="pIN-WC-hOG"/>
+                                <constraint firstItem="Yno-Ff-EXL" firstAttribute="trailing" secondItem="4ac-h7-dBj" secondAttribute="trailingMargin" id="yvs-vK-PsV"/>
                             </constraints>
+                            <variation key="default">
+                                <mask key="constraints">
+                                    <exclude reference="QxP-Dg-Bqu"/>
+                                </mask>
+                            </variation>
                         </view>
                         <blurEffect style="dark"/>
                     </visualEffectView>
@@ -74,6 +92,7 @@
             </constraints>
             <size key="customSize" width="444" height="341"/>
             <connections>
+                <outlet property="cellDate" destination="Yno-Ff-EXL" id="zJb-qi-R01"/>
                 <outlet property="cellImage" destination="bmg-r4-JCR" id="APm-kr-VJm"/>
                 <outlet property="cellTitle" destination="AP2-0K-Veg" id="Ze9-k6-vO1"/>
             </connections>

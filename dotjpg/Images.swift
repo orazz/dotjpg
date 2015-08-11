@@ -25,17 +25,16 @@ class Images {
     }
     
     class func ImagesWithJSON(results: NSArray) -> [Images] {
-        
         var images = [Images]()
         if results.count > 0 {
             for result in results {
                 var image = result["image"] as? String
                 var height = result["height"] as! Int
                 var width = result["width"] as! Int
-                var image_url = result["image_url"] as? String
+                var image_url = "http://dotjpg.co/" + (result["image"] as? String)!
                 var timestamp = result["timestamp"] as! Int
                 
-                var newImage = Images(image: image!, height: height, width: width, image_url: image_url!, timestamp: timestamp)
+                var newImage = Images(image: image!, height: height, width: width, image_url: image_url, timestamp: timestamp)
                 images.append(newImage)
             }
         }
