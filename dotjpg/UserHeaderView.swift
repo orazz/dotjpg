@@ -14,8 +14,14 @@ class UserHeaderView: UIView {
     let defaultHeight: CGFloat
     var inView = UIScrollView()
     var nav: UINavigationController!
+    var fullImage: ViewImageVC!
+    
     init(image: UIImage, height: CGFloat!, inView: UIScrollView!, nav: UINavigationController!) {
         let appFrame: CGRect = UIScreen.mainScreen().applicationFrame
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        self.fullImage = storyboard.instantiateViewControllerWithIdentifier("ViewImageVC") as! ViewImageVC
+        self.fullImage.image = image
+        
         imageView = UIImageView(frame: CGRectMake(0.0, 0.0, appFrame.width, height))
         defaultHeight = height
         self.inView = inView
@@ -27,8 +33,8 @@ class UserHeaderView: UIView {
         imageView.contentMode = UIViewContentMode.ScaleAspectFill
         imageView.autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight
         imageView.clipsToBounds = true
-
         imageView.addSubview(view)
+        
         self.addSubview(imageView)
         
         var backBtn = UIButton(frame: CGRectMake(5, 15, 60, 40))
@@ -36,10 +42,20 @@ class UserHeaderView: UIView {
         backBtn.titleLabel?.font = UIFont(name: "Hevletica", size: 14.0)
         backBtn.addTarget(self, action: Selector("back"), forControlEvents: .TouchUpInside)
         self.addSubview(backBtn)
-        
         inView.addSubview(self)
         inView.contentInset = UIEdgeInsetsMake(defaultHeight, 0.0, 0.0, 0.0)
         inView.addObserver(self, forKeyPath: "contentOffset", options: NSKeyValueObservingOptions.New, context: nil)
+        var tapToView = UITapGestureRecognizer(target: self, action: Selector("viewImage"))
+        self.addGestureRecognizer(tapToView)
+    }
+    
+    func viewImage() {
+        
+        self.nav?.radialPushViewController(fullImage,startFrame: imageView.frame,duration:0.3,transitionCompletion: { () -> Void in
+            
+            
+            
+        })
     }
     
     func back() {

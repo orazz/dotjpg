@@ -25,6 +25,7 @@ class PhotoVC: UIViewController, UIScrollViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         //self.navigationController?.navigationBar.translucent = true
         newPhoto.setup()
         activityIndicator.startAnimating()
@@ -41,7 +42,7 @@ class PhotoVC: UIViewController, UIScrollViewDelegate {
         tabBar?.tintColor = UIColor.whiteColor()
         newPhoto.tintColor = UIColor.whiteColor()
         navigationItem.title = "POPULAR"
-        var exampleImage = UIImage(named: "Icon1")?.imageWithRenderingMode(.AlwaysTemplate)
+        var exampleImage = UIImage(named: "ic_image")?.imageWithRenderingMode(.AlwaysTemplate)
         newPhoto.setImage(exampleImage, forState: UIControlState.Normal)
         newPhoto.tintColor = UIColor.whiteColor()
     }

@@ -22,28 +22,35 @@ class ViewPhotoVC: UIViewController {
     var headerImageView: UIImageView!
     
     var share: FloatingButton!
+    var offset_HeaderStop:CGFloat = 40.0;
+    var offset_B_LabelHeader:CGFloat = 95.0;
+    var distance_W_LabelHeader:CGFloat = 35.0;
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         tableView!.estimatedRowHeight = 100
         tableView!.rowHeight = UITableViewAutomaticDimension
         self.tableView!.tableFooterView?.hidden = true
         self.tableView!.separatorStyle = UITableViewCellSeparatorStyle.None
+        self.header = UIView(frame: CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.y, width: self.view.frame.size.width, height: 0))
         UserHeaderView(image: image, height: headerViewHeight, inView: tableView, nav:self.navigationController)
         var img = images[0]
         links = [("",""),("Göni link", img.image_url), ("HTML","<a href=\"\(img.image_url)\"><img src=\"\(img.image_url)\"/></a>"), ("Markdown","[![image](\(img.image_url))](\(img.image_url))"),("bbcode","[url=\(img.image_url)][img]\(img.image_url)[/img][/url]")]
     
-        self.header = UIView(frame: CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.y, width: self.view.frame.size.width, height: 0))
+        
         self.view.addSubview(header)
         
         self.tableView.tableHeaderView = UIView(frame: CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, self.view.frame.size.width, self.header.frame.size.height))
+        
         self.view.addSubview(self.tableView)
         self.avatarImage = UIImageView(frame: CGRectMake(10, -30, 69, 69))
         self.avatarImage.image = image
         self.avatarImage.clipsToBounds = true
         
         self.share = FloatingButton(image: UIImage(named: "ic_share"), backgroundColor: UIColor.MKColor.Teal)
-        self.share.frame.origin.y = -27
+        self.share.addTarget(self, action: Selector("shareImage:"), forControlEvents: .TouchUpInside)
+        self.share.frame.origin.y = -30
         self.share.frame.origin.x = self.header.frame.width - self.share.frame.width - 10
         self.share.clipsToBounds = true
         
@@ -58,14 +65,15 @@ class ViewPhotoVC: UIViewController {
         self.avatarImage.layer.cornerRadius = 34.5;
         self.avatarImage.layer.borderWidth = 3;
         self.avatarImage.layer.borderColor = UIColor.whiteColor().CGColor
-
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        //self.navigationController?.disableRadialSwipe()
     }
     
     override func viewWillAppear(animated: Bool) {
+        
         super.viewWillAppear(animated)
         self.tabBarController?.tabBar.hidden = true
         self.navigationController?.navigationBar.hidden = true
@@ -79,6 +87,35 @@ class ViewPhotoVC: UIViewController {
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
         return UIStatusBarStyle.Default
+    }
+    
+    func shareImage(sender: UIButton) {
+        let firstActivityItem = "Suratlaryňyzy dotjpg.co bilen paýlaş"
+        let secondActivityItem : NSURL = NSURL(string: self.images[0].image_url)!
+        
+        let activityViewController : UIActivityViewController = UIActivityViewController(
+            activityItems: [firstActivityItem, secondActivityItem, self.image], applicationActivities: nil)
+        
+        // This lines is for the popover you need to show in iPad
+        activityViewController.popoverPresentationController?.sourceView = (sender as UIButton)
+        
+        // This line remove the arrow of the popover to show in iPad
+        activityViewController.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection.allZeros
+        activityViewController.popoverPresentationController?.sourceRect = CGRect(x: 150, y: 150, width: 0, height: 0)
+        
+        // Anything you want to exclude
+        activityViewController.excludedActivityTypes = [
+            UIActivityTypePostToWeibo,
+            UIActivityTypePrint,
+            UIActivityTypeAssignToContact,
+            UIActivityTypeSaveToCameraRoll,
+            UIActivityTypeAddToReadingList,
+            UIActivityTypePostToFlickr,
+            UIActivityTypePostToVimeo,
+            UIActivityTypePostToTencentWeibo
+        ]
+        
+        self.presentViewController(activityViewController, animated: true, completion: nil)
     }
         
 }
@@ -96,14 +133,16 @@ extension ViewPhotoVC: UITableViewDataSource, UITableViewDelegate, UITextFieldDe
         if(indexPath.row == 0) {
             if let cellR = tableView.dequeueReusableCellWithIdentifier("Cell") as? ViewPhotoCell {
                 var time = NSTimeInterval(images[0].timestamp)
-                cellR.download.text = "\(NSDate(timeIntervalSince1970: time).relativeTime)   ⬇︎Indir"
+                cellR.download.text = "\(NSDate(timeIntervalSince1970: time).relativeTime)"
                 cell = cellR
             }
         }else{
             if let cellR = tableView.dequeueReusableCellWithIdentifier("CellLinks") as? ViewPhotoCellLinks {
                 cellR.titleLbl.text = links[indexPath.row].0
-                cellR.textfield.text = links[indexPath.row].1
-                cellR.textfield.delegate = self
+                cellR.textView.text = links[indexPath.row].1
+                var tapRecognizer = UITapGestureRecognizer(target: self, action: Selector("copyTapped"))
+                cellR.textView.addGestureRecognizer(tapRecognizer)
+                
                 cell = cellR
             }
         }
@@ -112,9 +151,69 @@ extension ViewPhotoVC: UITableViewDataSource, UITableViewDelegate, UITextFieldDe
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        UIPasteboard.generalPasteboard().string = self.images[0].image_url
-        self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        if (indexPath.row == 0) {
+            UIImageWriteToSavedPhotosAlbum(image, self, Selector("image:didFinishSavingWithError:contextInfo:"), nil)
+            self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        }else{
+            UIPasteboard.generalPasteboard().string = self.images[0].image_url
+            JLToast.makeText("Link nusgalandy.", delay: 0, duration: 2).show()
+            self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        }
     }
+    
+    func image(image: UIImage, didFinishSavingWithError error: NSErrorPointer, contextInfo: UnsafePointer<()>) {
+        dispatch_async(dispatch_get_main_queue(), {
+            UIAlertView(title: "Üstünlik", message: "Surat indirildi", delegate: nil, cancelButtonTitle: "Close").show()
+        })
+    }
+    
+    func copyTapped() {
+        UIPasteboard.generalPasteboard().string = self.images[0].image_url
+        JLToast.makeText("Link nusgalandy.", delay: 0, duration: 2).show()
+    }
+    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        var offset =  scrollView.contentOffset.y
+        //animationForScroll(offset)
+    }
+    
+
+    
+    func animationForScroll(offset:CGFloat) {
+        var headerTransform = CATransform3DIdentity
+        var avatarTransform = CATransform3DIdentity
+       
+        var view = self.tableView.viewWithTag(101)
+        
+        if (offset < 0) {
+            var headerScaleFactor = -(offset) / self.header.bounds.size.height
+            var headerSizevariation = ((self.header.bounds.size.height * (1.0 + headerScaleFactor)) - self.header.bounds.size.height) / 2.0
+            headerTransform = CATransform3DTranslate(headerTransform, 0, headerSizevariation, 0)
+            headerTransform = CATransform3DScale(headerTransform, 1.0, headerScaleFactor, 1.0 + headerScaleFactor)
+            
+            self.header.layer.transform = headerTransform
+            
+        }else{
+            headerTransform = CATransform3DTranslate(headerTransform, 0, max(-offset_HeaderStop, -offset), 0)
+            var buttonScaleFactor = (min(offset_HeaderStop, offset)) / self.share.bounds.size.height / 1.4
+            var buttonSizeVariation = ((self.share.bounds.size.height * (1.0 + buttonScaleFactor)) - self.share.bounds.size.height) / 2.0
+            avatarTransform = CATransform3DTranslate(avatarTransform, 0, buttonSizeVariation, 0)
+            avatarTransform = CATransform3DScale(avatarTransform, 1.0 - buttonScaleFactor, 1.0 - buttonScaleFactor, 0)
+            
+            if (offset <= offset_HeaderStop) {
+                if (self.share.layer.zPosition <= self.headerImageView.layer.zPosition) {
+                    self.header.layer.zPosition = 0
+                }
+            }else{
+                if(self.share.layer.zPosition >= self.headerImageView.layer.zPosition) {
+                    self.header.layer.zPosition = 2
+                }
+            }
+            self.header.layer.transform = headerTransform
+            self.share.layer.transform = avatarTransform
+        }
+    }
+    
 }
 class ViewPhotoCell: UITableViewCell {
     @IBOutlet weak var download: UILabel!
@@ -122,17 +221,14 @@ class ViewPhotoCell: UITableViewCell {
 
 class ViewPhotoCellLinks: UITableViewCell {
     @IBOutlet weak var titleLbl: UILabel!
-    @IBOutlet weak var textfield: MKTextField!
+    @IBOutlet weak var textView: MKTextView!
+    private var bottomBorderLayer: CALayer?
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        textfield.layer.borderColor = UIColor.clearColor().CGColor
-        textfield.floatingPlaceholderEnabled = true
-        textfield.tintColor = UIColor.orangeColor()
-        textfield.rippleLocation = .Right
-        textfield.cornerRadius = 0
-        textfield.bottomBorderEnabled = true
-        textfield.enabled = false
+        textView.bottomBorderEnabled = true
+        textView.sizeToFit()
+        textView.font = UIFont(name: "Hevletica", size: 16.0)
     }
 }
 

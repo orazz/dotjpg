@@ -88,20 +88,25 @@ extension NSDate {
         let now = NSDate()
         let humanDate = GetHumanDate(self, "off")
         if now.yearsFrom(self)   > 0 {
-            return now.yearsFrom(self).description  + " ýyl"  + { return now.yearsFrom(self)   > 1 ? "" : "" }() + " öň, \(humanDate)"
+            //return now.yearsFrom(self).description  + " ýyl"  + { return now.yearsFrom(self)   > 1 ? "" : "" }() + " öň, \(humanDate)"
+            return "\(humanDate)"
         }
         if now.monthsFrom(self)  > 0 {
-            return now.monthsFrom(self).description + " aý " + { return now.monthsFrom(self)  > 1 ? "" : "" }() + " öň, \(humanDate)"
+            //return now.monthsFrom(self).description + " aý " + { return now.monthsFrom(self)  > 1 ? "" : "" }() + " öň, \(humanDate)"
+            return "\(humanDate)"
         }
         if now.weeksFrom(self)   > 0 {
-            return now.weeksFrom(self).description  + " hepde"  + { return now.weeksFrom(self)   > 1 ? "" : "" }() + " öň, \(humanDate)"
+            //return now.weeksFrom(self).description  + " hepde"  + { return now.weeksFrom(self)   > 1 ? "" : "" }() + " öň, \(humanDate)"
+            return "\(humanDate)"
         }
         if now.daysFrom(self)    > 0 {
             if daysFrom(self) == 1 { return "Düýn" }
-            return now.daysFrom(self).description + " gün öň, \(humanDate)"
+            //return now.daysFrom(self).description + " gün öň, \(humanDate)"
+            return "\(humanDate)"
         }
         if now.hoursFrom(self)   > 0 {
-            return "\(now.hoursFrom(self)) sagat"     + { return now.hoursFrom(self)   > 1 ? "" : "" }() + " öň, \(humanDate)"
+            //return "\(now.hoursFrom(self)) sagat"     + { return now.hoursFrom(self) > 1 ? "" : "" }() + " öň, \(humanDate)"
+            return "\(humanDate)"
         }
         if now.minutesFrom(self) > 0 {
             return "\(now.minutesFrom(self)) minut" + { return now.minutesFrom(self) > 1 ? "" : "" }() + " öň, \(humanDate)"
@@ -131,26 +136,26 @@ func GetHumanDate(date: NSDate, showtime: String?) -> String
     let time: String = (date as NSString).substringWithRange(NSMakeRange(11, 5))
     
     var month: [String: String] =
-    ["01" : "Ýanwar",
-        "02": "Fewral",
-        "03": "Mart",
-        "04": "Aprel",
+    ["01" : "Ýan.",
+        "02": "Few.",
+        "03": "Mar.",
+        "04": "Apr.",
         "05": "Maý",
         "06": "Iýun",
         "07": "Iýul",
-        "08": "Awgust",
-        "09": "Sentýabr",
-        "10": "Oktýabr",
-        "11": "Noýabr",
-        "12": "Dekabr"]
+        "08": "Awg.",
+        "09": "Sen.",
+        "10": "Okt.",
+        "11": "Noý.",
+        "12": "Dek."]
     
     if(today == checkDate){
         return "\(time)"
     }
     
     if(showtime == "on"){
-        return "\(d) \(month[m]!), \(y) \(time)"
+        return "\(d) \(month[m]!) \(y) \(time)"
     }else{
-        return "\(d) \(month[m]!), \(y)"
+        return "\(d) \(month[m]!) \(y)"
     }
 }
