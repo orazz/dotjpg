@@ -40,7 +40,7 @@ class UserHeaderView: UIView {
         var backBtn = UIButton(frame: CGRectMake(5, 15, 60, 40))
         backBtn.setTitle("❮ yza", forState: .Normal)
         backBtn.titleLabel?.font = UIFont(name: "Hevletica", size: 14.0)
-        backBtn.addTarget(self, action: Selector("back"), forControlEvents: .TouchUpInside)
+        backBtn.addTarget(self, action: Selector("back:"), forControlEvents: .TouchUpInside)
         self.addSubview(backBtn)
         inView.addSubview(self)
         inView.contentInset = UIEdgeInsetsMake(defaultHeight, 0.0, 0.0, 0.0)
@@ -58,8 +58,8 @@ class UserHeaderView: UIView {
         })
     }
     
-    func back() {
-        nav!.popViewControllerAnimated(true)
+    func back(sender:UIButton) {
+        nav!.radialPopViewController(duration: 0.3, startFrame: sender.frame, transitionCompletion: nil)
     }
     
     deinit {

@@ -10,5 +10,6 @@
 #import <UIActivityIndicator-for-SDWebImage/UIImageView+UIActivityIndicatorForSDWebImage.h>
 #import <AFNetworking/AFNetworking.h> 
 #import "KMActivityIndicator.h"
+#import "ELCImagePickerController.h"
 
 #endif

@@ -22,12 +22,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xTw-zo-0xr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="753" y="334"/>
+            <point key="canvasLocation" x="1565" y="334"/>
         </scene>
         <!--PhotoVC-->
         <scene sceneID="qpY-5Z-Qea">
             <objects>
-                <viewController id="tNE-O0-SZC" customClass="PhotoVC" customModule="dotjpg" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PhotoVC" id="tNE-O0-SZC" customClass="PhotoVC" customModule="dotjpg" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="IXT-Qv-z91"/>
                         <viewControllerLayoutGuide type="bottom" id="fq2-Uy-RW1"/>
@@ -298,11 +298,31 @@
                     <connections>
                         <segue destination="eTq-NG-Hpz" kind="relationship" relationship="viewControllers" id="S2k-X5-3TG"/>
                         <segue destination="trt-HN-QOQ" kind="relationship" relationship="viewControllers" id="LEW-Zo-gHC"/>
+                        <segue destination="b3n-EX-dle" kind="show" id="YnL-eP-fTq"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Ff-qu-7yD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-67" y="3"/>
+        </scene>
+        <!--Multiple Image SelectVC-->
+        <scene sceneID="4MI-nc-LfV">
+            <objects>
+                <viewController storyboardIdentifier="MulipleImageSelectVC" extendedLayoutIncludesOpaqueBars="YES" id="b3n-EX-dle" customClass="MultipleImageSelectVC" customModule="dotjpg" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="OdB-sR-GxJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="yAR-PF-Nrp"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="4Bq-Ut-TCS">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="pWP-PI-0MS"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="et3-NF-MiU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-67" y="761"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="YUq-Sy-FJH">
@@ -322,6 +342,46 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uh0-mH-4QQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="753" y="-328"/>
+        </scene>
+        <!--Preview Controller-->
+        <scene sceneID="VCh-zE-z0C">
+            <objects>
+                <collectionViewController storyboardIdentifier="preview" id="fTK-gZ-DF1" customClass="PreviewController" customModule="dotjpg" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="JZ4-Zo-Ei7">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="tch-DO-Od1">
+                            <size key="itemSize" width="265" height="250"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="previewCell" id="6R6-GZ-QK1">
+                                <rect key="frame" x="0.0" y="0.0" width="265" height="250"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="265" height="250"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ipN-ws-N70">
+                                            <rect key="frame" x="0.0" y="0.0" width="265" height="250"/>
+                                        </imageView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="fTK-gZ-DF1" id="LIe-WY-MUD"/>
+                            <outlet property="delegate" destination="fTK-gZ-DF1" id="Son-d3-0nN"/>
+                        </connections>
+                    </collectionView>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="58L-d2-iBQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1559" y="993"/>
         </scene>
     </scenes>
     <resources>

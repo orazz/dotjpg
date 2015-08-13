@@ -48,6 +48,12 @@
 #define COCOAPODS_VERSION_MINOR_AFNetworking_UIKit 5
 #define COCOAPODS_VERSION_PATCH_AFNetworking_UIKit 0
 
+// ELCImagePickerController
+#define COCOAPODS_POD_AVAILABLE_ELCImagePickerController
+#define COCOAPODS_VERSION_MAJOR_ELCImagePickerController 0
+#define COCOAPODS_VERSION_MINOR_ELCImagePickerController 2
+#define COCOAPODS_VERSION_PATCH_ELCImagePickerController 0
+
 // SDWebImage
 #define COCOAPODS_POD_AVAILABLE_SDWebImage
 #define COCOAPODS_VERSION_MAJOR_SDWebImage 3

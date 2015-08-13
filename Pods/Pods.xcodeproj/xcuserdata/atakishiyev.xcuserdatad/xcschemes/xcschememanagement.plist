@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-ELCImagePickerController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-SDWebImage.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -27,22 +32,27 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>072D10FD7AC27B00C7EAF03F</key>
+		<key>4C40D9EE65D1B42D92219C05</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3B23E57CB58676B3C2AA76F2</key>
+		<key>86BE2948BC8BFDC86FEB0205</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3BDF029901E36A4075B06EC7</key>
+		<key>91600941A6E14AE32BE3535D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7E76ADB5EDE0D73CD7023894</key>
+		<key>CAFBA4BF5093E88F8FAA4549</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FC535CB862FAF45EA3A8B202</key>
 		<dict>
 			<key>primary</key>
 			<true/>

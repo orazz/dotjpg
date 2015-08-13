@@ -173,7 +173,6 @@
 				8E4548351B7A06390059FCF6 /* Toast */,
 				8E63FC601B6F7BD000ACFF0E /* Activity Indicator */,
 				8ED02EAE1B6CE87A0056EA4F /* Controller */,
-				8ED02EAC1B6CE0760056EA4F /* Config.swift */,
 				8ED02EA91B6CDF720056EA4F /* Models */,
 				8ED02EB51B6D0A660056EA4F /* PhotoVC.swift */,
 				8E63FC641B6F9BEF00ACFF0E /* ViewPhotoVC.swift */,
@@ -216,6 +215,7 @@
 		8ED02EA91B6CDF720056EA4F /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				8ED02EAC1B6CE0760056EA4F /* Config.swift */,
 				8ED02EAA1B6CDF900056EA4F /* Images.swift */,
 			);
 			name = Models;

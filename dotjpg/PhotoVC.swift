@@ -10,7 +10,7 @@ import UIKit
 
 let reuseIdentifier = "photoCell"
 
-class PhotoVC: UIViewController, UIScrollViewDelegate {
+class PhotoVC: UIViewController, UIScrollViewDelegate, UINavigationControllerDelegate {
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var newPhoto: FloatingButton!
@@ -23,9 +23,10 @@ class PhotoVC: UIViewController, UIScrollViewDelegate {
     var images = [Images]()
     var bounds = UIScreen.mainScreen().bounds
     
+    var photoURLs = [NSURL]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         //self.navigationController?.navigationBar.translucent = true
         newPhoto.setup()
         activityIndicator.startAnimating()
@@ -43,24 +44,10 @@ class PhotoVC: UIViewController, UIScrollViewDelegate {
         newPhoto.tintColor = UIColor.whiteColor()
         navigationItem.title = "POPULAR"
         var exampleImage = UIImage(named: "ic_image")?.imageWithRenderingMode(.AlwaysTemplate)
+        newPhoto.addTarget(self, action: Selector("selectMultipleImage:"), forControlEvents: .TouchUpInside)
         newPhoto.setImage(exampleImage, forState: UIControlState.Normal)
         newPhoto.tintColor = UIColor.whiteColor()
     }
-
-    /*
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        self.navigationController!.navigationBar.barStyle = UIBarStyle.Black
-        self.navigationController?.navigationBar.translucent = true
-        UIApplication.sharedApplication().statusBarHidden=false
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationController!.navigationBar.barStyle = UIBarStyle.Black
-        self.navigationController?.navigationBar.translucent = true
-        UIApplication.sharedApplication().statusBarHidden=false
-    }*/
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -174,6 +161,65 @@ class PhotoVC: UIViewController, UIScrollViewDelegate {
             
             self.updateBarButtonItems(alpha)
         })
+    }
+    
+    func selectMultipleImage(sender:UIButton) {
+        
+        var elcPikcer = ELCImagePickerController()
+        elcPikcer.maximumImagesCount = 6; //Set the maximum number of images to select, defaults to 4
+        //elcPikcer.returnsOriginalImage = false; //Only return the fullScreenImage, not the fullResolutionImage
+        //elcPikcer.returnsImage = true; //Return UIimage if YES. If NO, only return asset location information
+        //elcPikcer.onOrder = true; //For multiple image selection, display and return selected order of images
+        elcPikcer.imagePickerDelegate = self;
+        
+        self.presentViewController(elcPikcer, animated: true, completion: nil)
+        
+        //let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        //var selectImage = storyboard.instantiateViewControllerWithIdentifier("MulipleImageSelectVC") as! MultipleImageSelectVC
+        
+        //self.navigationController?.pushViewController(selectImage, animated: true)
+       
+        // self.navigationController?.radialPushViewController(selectImage,startFrame: sender.frame,duration:0.3,transitionCompletion: { () -> Void in
+            
+            
+            
+        //})
+    }
+}
+
+extension PhotoVC: ELCImagePickerControllerDelegate {
+    func elcImagePickerController(picker: ELCImagePickerController!, didFinishPickingMediaWithInfo info: [AnyObject]!) {
+        var i = 0
+        var names = [String]()
+        for dictionary in info {
+            //var image = dictionary[UIImagePickerControllerOriginalImage] as! UIImage//ELC packages its dictionaries with the same key as UIImagePicker
+           // var fileData = UIImagePNGRepresentation(image);
+    
+            // ... the rest of your code ... //
+            
+            let imageURL = dictionary[UIImagePickerControllerReferenceURL] as! NSURL
+            
+            let imageName = "\(i)-\(imageURL.path!.lastPathComponent)"
+            let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first as! String
+            var localPath = documentDirectory.stringByAppendingPathComponent(imageName)
+            
+            
+            let image = dictionary[UIImagePickerControllerOriginalImage] as! UIImage
+            let data = UIImageJPEGRepresentation(image, 0.1)
+            data.writeToFile(localPath, atomically: true)
+            
+            let imageData = NSData(contentsOfFile: localPath)!
+            self.photoURLs.append(NSURL(fileURLWithPath: localPath)!)
+            names.append("\(i)_image")
+            i++
+        }
+        
+        self.api.imageUploader(["controller":"image","action":"fileUpload"], fileURLs: self.photoURLs, names: names)
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func elcImagePickerControllerDidCancel(picker: ELCImagePickerController!) {
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
 }
 
