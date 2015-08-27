@@ -44,9 +44,6 @@ class ViewPhotoVC: UIViewController {
         self.tableView.tableHeaderView = UIView(frame: CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, self.view.frame.size.width, self.header.frame.size.height))
         
         self.view.addSubview(self.tableView)
-        self.avatarImage = UIImageView(frame: CGRectMake(10, -30, 69, 69))
-        self.avatarImage.image = image
-        self.avatarImage.clipsToBounds = true
         
         self.share = FloatingButton(image: UIImage(named: "ic_share"), backgroundColor: UIColor.MKColor.Teal)
         self.share.addTarget(self, action: Selector("shareImage:"), forControlEvents: .TouchUpInside)
@@ -62,9 +59,9 @@ class ViewPhotoVC: UIViewController {
         self.header.clipsToBounds = true
         self.tableView.addSubview(share)
         
-        self.avatarImage.layer.cornerRadius = 34.5;
-        self.avatarImage.layer.borderWidth = 3;
-        self.avatarImage.layer.borderColor = UIColor.whiteColor().CGColor
+        if self.image == nil {
+            self.share.enabled = false
+        }
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -163,7 +160,7 @@ extension ViewPhotoVC: UITableViewDataSource, UITableViewDelegate, UITextFieldDe
     
     func image(image: UIImage, didFinishSavingWithError error: NSErrorPointer, contextInfo: UnsafePointer<()>) {
         dispatch_async(dispatch_get_main_queue(), {
-            UIAlertView(title: "Üstünlik", message: "Surat indirildi", delegate: nil, cancelButtonTitle: "Close").show()
+            SweetAlert().showAlert("Üstünlikli!", subTitle: "Suratyňyz üstünlikli indirildi", style: AlertStyle.Success)
         })
     }
     

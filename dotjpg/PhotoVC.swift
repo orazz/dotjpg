@@ -45,7 +45,7 @@ class PhotoVC: UIViewController, UIScrollViewDelegate, UINavigationControllerDel
         tabBar?.barTintColor = UIColor.MKColor.Teal
         tabBar?.tintColor = UIColor.whiteColor()
         newPhoto.tintColor = UIColor.whiteColor()
-        navigationItem.title = "POPULAR"
+        navigationItem.title = "dotjpg"
         var exampleImage = UIImage(named: "ic_image")?.imageWithRenderingMode(.AlwaysTemplate)
         newPhoto.addTarget(self, action: Selector("selectMultipleImage:"), forControlEvents: .TouchUpInside)
         newPhoto.setImage(exampleImage, forState: UIControlState.Normal)
@@ -58,7 +58,7 @@ class PhotoVC: UIViewController, UIScrollViewDelegate, UINavigationControllerDel
             if ( !self.loadMoreStatus ) {
                 self.loadMoreStatus = true
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-                    self.api.clientRequest(["controller":"image", "action":"getAll", "page":self.pagination], objectForKey: "data")
+                    self.api.clientRequest(["controller":"image", "action":"getAllSpecial", "page":self.pagination], objectForKey: "data")
                 }
             }
         })
@@ -73,6 +73,9 @@ class PhotoVC: UIViewController, UIScrollViewDelegate, UINavigationControllerDel
     
     override func viewDidDisappear(animated: Bool) {
         self.tabBarController?.tabBar.frame.origin.y = CGFloat(bounds.height) - self.tabBarController!.tabBar.frame.height
+        var frame: CGRect = self.navigationController!.navigationBar.frame
+        frame.origin.y = 20
+        self.navigationController?.navigationBar.frame = frame
         updateBarButtonItems(1)
         super.viewDidDisappear(animated)
     }
@@ -202,17 +205,6 @@ class PhotoVC: UIViewController, UIScrollViewDelegate, UINavigationControllerDel
         elcPikcer.imagePickerDelegate = self;
         
         self.presentViewController(elcPikcer, animated: true, completion: nil)
-        
-        //let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        //var selectImage = storyboard.instantiateViewControllerWithIdentifier("MulipleImageSelectVC") as! MultipleImageSelectVC
-        
-        //self.navigationController?.pushViewController(selectImage, animated: true)
-       
-        // self.navigationController?.radialPushViewController(selectImage,startFrame: sender.frame,duration:0.3,transitionCompletion: { () -> Void in
-            
-            
-            
-        //})
     }
 }
 
@@ -245,13 +237,8 @@ extension PhotoVC: ELCImagePickerControllerDelegate {
   
         dismissViewControllerAnimated(true, completion: {
             () -> () in
-            //self.presentViewController(pc, animated: true, completion: nil)
             self.navigationController!.pushViewController(pc, animated: true)
-            //self.presentViewController(pc, animated: true, completion: nil)
         })
-        
-        //self.api.imageUploader(["controller":"image","action":"fileUpload"], fileURLs: self.photoURLs, names: names)
-        //self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     func elcImagePickerControllerDidCancel(picker: ELCImagePickerController!) {

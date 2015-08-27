@@ -27,13 +27,17 @@ class SelectedImagesForUploadVC: UIViewController {
     }
     
     func UploadImages() {
-        self.api.imageUploader(["controller":"image","action":"fileUpload"], fileURLs: self.urls, names: names)
-        var xhAmazing = XHAmazingLoadingView(type: XHAmazingLoadingAnimationType.Skype)
-        xhAmazing.loadingTintColor = UIColor.MKColor.Teal
-        xhAmazing.backgroundTintColor = UIColor.whiteColor().colorWithAlphaComponent(0.5)
-        xhAmazing.frame = self.view.bounds
-        self.view.addSubview(xhAmazing)
-        xhAmazing.startAnimating()
+        if self.urls.count <= 0 {
+            self.navigationController?.popViewControllerAnimated(true)
+        }else{
+            self.api.imageUploader(["controller":"image","action":"fileUpload"], fileURLs: self.urls, names: names)
+            var xhAmazing = XHAmazingLoadingView(type: XHAmazingLoadingAnimationType.Skype)
+            xhAmazing.loadingTintColor = UIColor.MKColor.Teal
+            xhAmazing.backgroundTintColor = UIColor.whiteColor().colorWithAlphaComponent(0.5)
+            xhAmazing.frame = self.view.bounds
+            self.view.addSubview(xhAmazing)
+            xhAmazing.startAnimating()
+        }
     }
     
 }
@@ -77,25 +81,17 @@ extension SelectedImagesForUploadVC: UITableViewDataSource, UITableViewDelegate 
     
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
         let delete = UITableViewRowAction(style: .Normal, title: "poz") { action, index in
-            println("more button tapped")
+            self.urls.removeAtIndex(indexPath.row)
+            self.names.removeAtIndex(indexPath.row)
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
         }
         delete.backgroundColor = UIColor.redColor()
 
         return [delete]
     }
-    
-    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // the cells you would like the actions to appear needs to be editable
-        return true
-    }
-    
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        // you need to implement this method too or you can't swipe to display the actions
-    }
 }
 
 class SelectedImagesCell: UITableViewCell {
-    
     
     @IBOutlet weak var imageSelected: UIImageView!
     @IBOutlet weak var imageSize: UILabel!

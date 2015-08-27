@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="krb-Zx-42J">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -203,7 +204,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="qNZ-cw-B22">
-                                <rect key="frame" x="0.0" y="-20" width="600" height="670"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="670"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="70" id="Ada-TF-pyW" customClass="ViewPhotoCell" customModule="dotjpg" customModuleProvider="target">
@@ -279,7 +280,7 @@
                                                         <constraint firstAttribute="height" constant="51" id="jRp-7U-zk9"/>
                                                     </constraints>
                                                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
                                             </subviews>
@@ -307,10 +308,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="bottomMargin" secondItem="qNZ-cw-B22" secondAttribute="bottom" constant="-50" id="Qv1-DI-eP8"/>
-                            <constraint firstItem="qNZ-cw-B22" firstAttribute="leading" secondItem="hAt-p2-yGH" secondAttribute="leading" id="S8L-kI-oTb"/>
-                            <constraint firstAttribute="trailing" secondItem="qNZ-cw-B22" secondAttribute="trailing" id="f6F-Rf-TQ3"/>
-                            <constraint firstItem="qNZ-cw-B22" firstAttribute="top" secondItem="cwH-Qd-Ufy" secondAttribute="bottom" constant="-20" id="zs7-ri-Hbw"/>
+                            <constraint firstAttribute="trailing" secondItem="qNZ-cw-B22" secondAttribute="trailing" id="Qwl-xy-Fuk"/>
+                            <constraint firstItem="qNZ-cw-B22" firstAttribute="top" secondItem="hAt-p2-yGH" secondAttribute="topMargin" id="Th9-No-SnW"/>
+                            <constraint firstItem="qNZ-cw-B22" firstAttribute="leading" secondItem="hAt-p2-yGH" secondAttribute="leading" id="Y1Z-DR-UaV"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="qNZ-cw-B22" secondAttribute="bottom" constant="-70" id="pBg-2J-2Zw"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
@@ -553,7 +554,7 @@
         <scene sceneID="D3k-SX-Tsf">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="WsK-cn-vFs" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="Icon2" id="iue-ys-u0b"/>
+                    <tabBarItem key="tabBarItem" title="" image="uploaded" id="iue-ys-u0b"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Wca-D1-qr7">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -571,9 +572,9 @@
     </scenes>
     <resources>
         <image name="Icon1" width="26" height="24"/>
-        <image name="Icon2" width="17" height="26"/>
         <image name="ic_download" width="30" height="30"/>
         <image name="ic_image" width="30" height="30"/>
         <image name="ic_time" width="30" height="30"/>
+        <image name="uploaded" width="48" height="32"/>
     </resources>
 </document>

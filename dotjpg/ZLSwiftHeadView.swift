@@ -20,6 +20,7 @@ public class ZLSwiftHeadView: UIView {
     var pullImages:[UIImage] = [UIImage]()
     var animationStatus:HeaderViewRefreshAnimationStatus?
     var activityView: UIActivityIndicatorView?
+    var _bounds = UIScreen.mainScreen().bounds
     
     var nowLoading:Bool = false{
         willSet {
@@ -79,10 +80,12 @@ public class ZLSwiftHeadView: UIView {
         self.headImageView = headImageView
         
         var headLabel:UILabel = UILabel(frame: self.frame)
+        headLabel.frame.size.width = _bounds.width
         headLabel.text = ZLSwithRefreshHeadViewText
         headLabel.textAlignment = .Center
         headLabel.clipsToBounds = true;
         headLabel.textColor = UIColor.MKColor.Teal
+        self.frame.size.width = _bounds.width
         self.addSubview(headLabel)
         self.headLabel = headLabel
         

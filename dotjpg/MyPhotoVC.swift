@@ -334,8 +334,6 @@ extension MyPhotoVC: APIProtocol {
                     self.loadMoreStatus = false
                     self.pagination++
                 }
-                activityIndicator.stopAnimating()
-                loadinLbl.hidden = true
                 self.isRefresh = false
                 weakSelf?.collectionView.reloadData()
                 weakSelf?.collectionView.doneRefresh()
@@ -345,5 +343,7 @@ extension MyPhotoVC: APIProtocol {
                 //weakSelf?.collectionView.endLoadMoreData()
             }
         }
+        activityIndicator.stopAnimating()
+        loadinLbl.hidden = true
     }
 }

@@ -12,6 +12,7 @@ public class ZLSwiftFootView: UIView {
     
     var scrollView:UIScrollView = UIScrollView()
     var footLabel: UILabel = UILabel()
+    public var _bounds = UIScreen.mainScreen().bounds
     
     var loadMoreAction: (() -> Void) = {}
     var loadMoreTempAction:(() -> Void) = {}
@@ -40,7 +41,7 @@ public class ZLSwiftFootView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor.grayColor().colorWithAlphaComponent(0.1)//UIColor(red: 222.0/255.0, green: 222.0/255.0, blue: 222.0/255.0, alpha: 1.0)
+        self.backgroundColor = UIColor.grayColor().colorWithAlphaComponent(0.1)
         self.setupUI()
         
     }
@@ -51,10 +52,11 @@ public class ZLSwiftFootView: UIView {
     }
     
     func setupUI(){
-        var footTitleLabel:UILabel = UILabel(frame: CGRectMake(0, 0, self.frame.size.width, self.frame.size.height))
+        var footTitleLabel:UILabel = UILabel(frame: CGRectMake(0, 0, _bounds.width, self.frame.size.height))
         footTitleLabel.textAlignment = .Center
         footTitleLabel.text = ZLSwithRefreshFootViewText
         footTitleLabel.textColor = UIColor.MKColor.Teal
+        self.frame.size.width = _bounds.width
         self.addSubview(footTitleLabel)
         footLabel = footTitleLabel
     }
