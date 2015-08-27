@@ -1,0 +1,1 @@
+../../../XHAmazingLoading/XHAmazingLoading/Animations/XHAmazingLoadingStarAnimation.h

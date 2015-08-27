@@ -1,0 +1,1 @@
+../../../XHAmazingLoading/XHAmazingLoading/Protocol/XHAmazingLoadingAnimationProtocol.h

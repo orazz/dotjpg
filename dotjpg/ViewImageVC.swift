@@ -11,11 +11,16 @@ import UIKit
 class ViewImageVC: UIViewController {
     
     @IBOutlet weak var imageView: UIImageView!
-    var image: UIImage!
+    var image: UIImage?
+    var imgURL: NSURL!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        imageView.image = image
+        if image != nil {
+            imageView.image = image
+        }else{
+            imageView.setImageWithURL(imgURL, usingActivityIndicatorStyle: UIActivityIndicatorViewStyle.White)
+        }
         
     }
     

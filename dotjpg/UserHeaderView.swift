@@ -16,11 +16,15 @@ class UserHeaderView: UIView {
     var nav: UINavigationController!
     var fullImage: ViewImageVC!
     
-    init(image: UIImage, height: CGFloat!, inView: UIScrollView!, nav: UINavigationController!) {
+    init(image: UIImage?, height: CGFloat!, inView: UIScrollView!, nav: UINavigationController!, imgURL: NSURL) {
         let appFrame: CGRect = UIScreen.mainScreen().applicationFrame
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         self.fullImage = storyboard.instantiateViewControllerWithIdentifier("ViewImageVC") as! ViewImageVC
-        self.fullImage.image = image
+        if (image != nil) {
+            self.fullImage.image = image
+        }else{
+            self.fullImage.imgURL = imgURL
+        }
         
         imageView = UIImageView(frame: CGRectMake(0.0, 0.0, appFrame.width, height))
         defaultHeight = height
@@ -28,7 +32,11 @@ class UserHeaderView: UIView {
         super.init(frame: imageView.frame)
         self.frame.origin.y = -defaultHeight - 20
         self.nav = nav
-        self.imageView.image = image
+        if (image != nil) {
+            self.imageView.image = image
+        }else{
+            self.imageView.setImageWithURL(imgURL, usingActivityIndicatorStyle: .Gray)
+        }
         var view = UIView(frame: CGRect(x: appFrame.width/3.5, y: 0, width: 0, height: 200))
         imageView.contentMode = UIViewContentMode.ScaleAspectFill
         imageView.autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight

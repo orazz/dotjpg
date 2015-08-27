@@ -72,3 +72,9 @@
 #define COCOAPODS_VERSION_MINOR_UIActivityIndicator_for_SDWebImage 2
 #define COCOAPODS_VERSION_PATCH_UIActivityIndicator_for_SDWebImage 0
 
+// XHAmazingLoading
+#define COCOAPODS_POD_AVAILABLE_XHAmazingLoading
+#define COCOAPODS_VERSION_MAJOR_XHAmazingLoading 0
+#define COCOAPODS_VERSION_MINOR_XHAmazingLoading 2
+#define COCOAPODS_VERSION_PATCH_XHAmazingLoading 0
+

@@ -50,6 +50,13 @@ extension UIColor {
         return image
     }
 }
+
+extension Double {
+    func format(f: String) -> String {
+        return NSString(format: "%\(f)f", self) as String
+    }
+}
+
 func imageWithImage(sourceImage: UIImage, i_width:CGFloat) -> UIImage {
     var oldWidth = sourceImage.size.width
     var scaleFactor = i_width / oldWidth
@@ -150,7 +157,7 @@ func GetHumanDate(date: NSDate, showtime: String?) -> String
         "12": "Dek."]
     
     if(today == checkDate){
-        return "\(time)"
+        return "Şu gün(\(time))"
     }
     
     if(showtime == "on"){
@@ -158,4 +165,13 @@ func GetHumanDate(date: NSDate, showtime: String?) -> String
     }else{
         return "\(d) \(month[m]!) \(y)"
     }
+}
+
+public func delay(delay:Double, closure:()->()) {
+    dispatch_after(
+        dispatch_time(
+            DISPATCH_TIME_NOW,
+            Int64(delay * Double(NSEC_PER_SEC))
+        ),
+        dispatch_get_main_queue(), closure)
 }

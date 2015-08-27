@@ -11,5 +11,6 @@
 #import <AFNetworking/AFNetworking.h> 
 #import "KMActivityIndicator.h"
 #import "ELCImagePickerController.h"
+#import "XHAmazingLoadingView.h"
 
 #endif

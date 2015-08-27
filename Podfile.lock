@@ -26,17 +26,20 @@ PODS:
   - SDWebImage/Core (3.7.3)
   - UIActivityIndicator-for-SDWebImage (1.2):
     - SDWebImage (~> 3.7)
+  - XHAmazingLoading (0.2)
 
 DEPENDENCIES:
   - AFNetworking (= 2.5.0)
   - ELCImagePickerController
   - SDWebImage (~> 3.7)
   - UIActivityIndicator-for-SDWebImage
+  - XHAmazingLoading
 
 SPEC CHECKSUMS:
   AFNetworking: 96ac9bf3eda33582701cb1fcc5b896aa1e20311e
   ELCImagePickerController: b1b7084434a7d49f2cfc916bde1f3ba353d38de9
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
   UIActivityIndicator-for-SDWebImage: 7bf7ebbf0ed1747dedc0d6e949c4603a6d0f9e0c
+  XHAmazingLoading: 86da1c59191326ea63e6df7ba3886f3e6ddef032
 
 COCOAPODS: 0.35.0

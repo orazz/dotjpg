@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8E4406B41B7CAD150070A995 /* SelectedImagesForUploadVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4406B31B7CAD150070A995 /* SelectedImagesForUploadVC.swift */; };
 		8E4548391B7A06480059FCF6 /* JLToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4548361B7A06480059FCF6 /* JLToast.swift */; };
 		8E45483A1B7A06480059FCF6 /* JLToastCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4548371B7A06480059FCF6 /* JLToastCenter.swift */; };
 		8E45483B1B7A06480059FCF6 /* JLToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4548381B7A06480059FCF6 /* JLToastView.swift */; };
@@ -14,6 +15,8 @@
 		8E4548411B7A41740059FCF6 /* UINavigationController+RadialTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E45483E1B7A41740059FCF6 /* UINavigationController+RadialTransaction.swift */; };
 		8E4548421B7A41740059FCF6 /* UIView+Radial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E45483F1B7A41740059FCF6 /* UIView+Radial.swift */; };
 		8E4548441B7A42B70059FCF6 /* ViewImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4548431B7A42B70059FCF6 /* ViewImageVC.swift */; };
+		8E4A8DDF1B8C982800B27865 /* SweetAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4A8DDE1B8C982800B27865 /* SweetAlert.swift */; };
+		8E4A8DE11B8C9FEE00B27865 /* MyPhotoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4A8DE01B8C9FEE00B27865 /* MyPhotoVC.swift */; };
 		8E63FC631B6F7BDA00ACFF0E /* KMActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E63FC621B6F7BDA00ACFF0E /* KMActivityIndicator.m */; };
 		8E63FC651B6F9BEF00ACFF0E /* ViewPhotoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E63FC641B6F9BEF00ACFF0E /* ViewPhotoVC.swift */; };
 		8E63FC671B6FB12100ACFF0E /* UserHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E63FC661B6FB12100ACFF0E /* UserHeaderView.swift */; };
@@ -31,6 +34,10 @@
 		8ED02F411B6EA9970056EA4F /* FloatingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED02F401B6EA9970056EA4F /* FloatingButton.swift */; };
 		8ED02F431B6EA9F40056EA4F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED02F421B6EA9F40056EA4F /* Extensions.swift */; };
 		8EE3F2E91B6FF28100CC84C5 /* MKLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE3F2E81B6FF28100CC84C5 /* MKLayer.swift */; };
+		8EFC31CC1B8E1EA7000DA3F8 /* ZLSwiftConstDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFC31C81B8E1EA7000DA3F8 /* ZLSwiftConstDefine.swift */; };
+		8EFC31CD1B8E1EA7000DA3F8 /* ZLSwiftFootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFC31C91B8E1EA7000DA3F8 /* ZLSwiftFootView.swift */; };
+		8EFC31CE1B8E1EA7000DA3F8 /* ZLSwiftHeadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFC31CA1B8E1EA7000DA3F8 /* ZLSwiftHeadView.swift */; };
+		8EFC31CF1B8E1EA7000DA3F8 /* ZLSwiftRefreshExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFC31CB1B8E1EA7000DA3F8 /* ZLSwiftRefreshExtension.swift */; };
 		AACFCEBDC1296BF70186FD6F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D80D78910ACC5C2A314C131 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +54,7 @@
 /* Begin PBXFileReference section */
 		2A5B85507698287FA9EECF0C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		2D80D78910ACC5C2A314C131 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		8E4406B31B7CAD150070A995 /* SelectedImagesForUploadVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedImagesForUploadVC.swift; sourceTree = "<group>"; };
 		8E4548361B7A06480059FCF6 /* JLToast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JLToast.swift; sourceTree = "<group>"; };
 		8E4548371B7A06480059FCF6 /* JLToastCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JLToastCenter.swift; sourceTree = "<group>"; };
 		8E4548381B7A06480059FCF6 /* JLToastView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JLToastView.swift; sourceTree = "<group>"; };
@@ -54,6 +62,8 @@
 		8E45483E1B7A41740059FCF6 /* UINavigationController+RadialTransaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINavigationController+RadialTransaction.swift"; sourceTree = "<group>"; };
 		8E45483F1B7A41740059FCF6 /* UIView+Radial.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Radial.swift"; sourceTree = "<group>"; };
 		8E4548431B7A42B70059FCF6 /* ViewImageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewImageVC.swift; sourceTree = "<group>"; };
+		8E4A8DDE1B8C982800B27865 /* SweetAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SweetAlert.swift; sourceTree = "<group>"; };
+		8E4A8DE01B8C9FEE00B27865 /* MyPhotoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyPhotoVC.swift; sourceTree = "<group>"; };
 		8E63FC611B6F7BDA00ACFF0E /* KMActivityIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KMActivityIndicator.h; sourceTree = "<group>"; };
 		8E63FC621B6F7BDA00ACFF0E /* KMActivityIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KMActivityIndicator.m; sourceTree = "<group>"; };
 		8E63FC641B6F9BEF00ACFF0E /* ViewPhotoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewPhotoVC.swift; sourceTree = "<group>"; };
@@ -77,6 +87,10 @@
 		8ED02F401B6EA9970056EA4F /* FloatingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingButton.swift; sourceTree = "<group>"; };
 		8ED02F421B6EA9F40056EA4F /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		8EE3F2E81B6FF28100CC84C5 /* MKLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKLayer.swift; sourceTree = "<group>"; };
+		8EFC31C81B8E1EA7000DA3F8 /* ZLSwiftConstDefine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZLSwiftConstDefine.swift; sourceTree = "<group>"; };
+		8EFC31C91B8E1EA7000DA3F8 /* ZLSwiftFootView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZLSwiftFootView.swift; sourceTree = "<group>"; };
+		8EFC31CA1B8E1EA7000DA3F8 /* ZLSwiftHeadView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZLSwiftHeadView.swift; sourceTree = "<group>"; };
+		8EFC31CB1B8E1EA7000DA3F8 /* ZLSwiftRefreshExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZLSwiftRefreshExtension.swift; sourceTree = "<group>"; };
 		9987486C5D7C70E80BB68E03 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -169,14 +183,17 @@
 		8ED02E801B6B93F70056EA4F /* dotjpg */ = {
 			isa = PBXGroup;
 			children = (
+				8EFC31BF1B8DF189000DA3F8 /* FooterRefresh */,
 				8E45483C1B7A41690059FCF6 /* RadialTransitionSource */,
 				8E4548351B7A06390059FCF6 /* Toast */,
 				8E63FC601B6F7BD000ACFF0E /* Activity Indicator */,
 				8ED02EAE1B6CE87A0056EA4F /* Controller */,
 				8ED02EA91B6CDF720056EA4F /* Models */,
 				8ED02EB51B6D0A660056EA4F /* PhotoVC.swift */,
+				8E4406B31B7CAD150070A995 /* SelectedImagesForUploadVC.swift */,
 				8E63FC641B6F9BEF00ACFF0E /* ViewPhotoVC.swift */,
 				8E4548431B7A42B70059FCF6 /* ViewImageVC.swift */,
+				8E4A8DE01B8C9FEE00B27865 /* MyPhotoVC.swift */,
 				8ED02E871B6B93F70056EA4F /* Main.storyboard */,
 				8ED02F341B6D1ACB0056EA4F /* PhotoCollectionView.xib */,
 				8ED02E8C1B6B93F70056EA4F /* LaunchScreen.xib */,
@@ -230,8 +247,20 @@
 				8E63FC661B6FB12100ACFF0E /* UserHeaderView.swift */,
 				8E63FC681B6FC16C00ACFF0E /* MKTextView.swift */,
 				8EE3F2E81B6FF28100CC84C5 /* MKLayer.swift */,
+				8E4A8DDE1B8C982800B27865 /* SweetAlert.swift */,
 			);
 			name = Controller;
+			sourceTree = "<group>";
+		};
+		8EFC31BF1B8DF189000DA3F8 /* FooterRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				8EFC31C81B8E1EA7000DA3F8 /* ZLSwiftConstDefine.swift */,
+				8EFC31C91B8E1EA7000DA3F8 /* ZLSwiftFootView.swift */,
+				8EFC31CA1B8E1EA7000DA3F8 /* ZLSwiftHeadView.swift */,
+				8EFC31CB1B8E1EA7000DA3F8 /* ZLSwiftRefreshExtension.swift */,
+			);
+			name = FooterRefresh;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -372,10 +401,14 @@
 			files = (
 				8E45483A1B7A06480059FCF6 /* JLToastCenter.swift in Sources */,
 				8EE3F2E91B6FF28100CC84C5 /* MKLayer.swift in Sources */,
+				8E4406B41B7CAD150070A995 /* SelectedImagesForUploadVC.swift in Sources */,
 				8E4548411B7A41740059FCF6 /* UINavigationController+RadialTransaction.swift in Sources */,
 				8ED02EAD1B6CE0760056EA4F /* Config.swift in Sources */,
+				8E4A8DDF1B8C982800B27865 /* SweetAlert.swift in Sources */,
+				8EFC31CE1B8E1EA7000DA3F8 /* ZLSwiftHeadView.swift in Sources */,
 				8ED02F411B6EA9970056EA4F /* FloatingButton.swift in Sources */,
 				8E4548441B7A42B70059FCF6 /* ViewImageVC.swift in Sources */,
+				8EFC31CC1B8E1EA7000DA3F8 /* ZLSwiftConstDefine.swift in Sources */,
 				8E63FC631B6F7BDA00ACFF0E /* KMActivityIndicator.m in Sources */,
 				8E4548391B7A06480059FCF6 /* JLToast.swift in Sources */,
 				8E63FC651B6F9BEF00ACFF0E /* ViewPhotoVC.swift in Sources */,
@@ -387,8 +420,11 @@
 				8E4548401B7A41740059FCF6 /* AAPTransactionDirector.swift in Sources */,
 				8ED02E841B6B93F70056EA4F /* AppDelegate.swift in Sources */,
 				8E63FC691B6FC16C00ACFF0E /* MKTextView.swift in Sources */,
+				8EFC31CF1B8E1EA7000DA3F8 /* ZLSwiftRefreshExtension.swift in Sources */,
 				8ED02EB01B6CE8930056EA4F /* APIController.swift in Sources */,
 				8ED02EB61B6D0A660056EA4F /* PhotoVC.swift in Sources */,
+				8EFC31CD1B8E1EA7000DA3F8 /* ZLSwiftFootView.swift in Sources */,
+				8E4A8DE11B8C9FEE00B27865 /* MyPhotoVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

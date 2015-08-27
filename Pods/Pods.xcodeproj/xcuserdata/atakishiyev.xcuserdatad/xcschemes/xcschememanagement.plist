@@ -24,6 +24,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-XHAmazingLoading.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -32,27 +37,32 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>4C40D9EE65D1B42D92219C05</key>
+		<key>0AB00327042C0A7E73F15489</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>86BE2948BC8BFDC86FEB0205</key>
+		<key>627B66DC421ABA3CFAA2AE3D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>91600941A6E14AE32BE3535D</key>
+		<key>6416A801EAF1A36BD7D9FC05</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>CAFBA4BF5093E88F8FAA4549</key>
+		<key>88435AC8E94B0F50B28F0A22</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>FC535CB862FAF45EA3A8B202</key>
+		<key>9E7C9E309FA9AF776A88333B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E5ECAD7D92C672B42C6E836B</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -13,13 +13,13 @@ class ViewPhotoVC: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     var api: APIController!
     var images = [Images]()
-    var headerViewHeight: CGFloat = 200.0
+    private (set)var headerViewHeight: CGFloat = 200.0
     var image: UIImage!
     var links = [String,String]()
-    
-    var header: UIView!
-    var avatarImage: UIImageView!
-    var headerImageView: UIImageView!
+    var imgURL: NSURL!
+    private (set)var header: UIView!
+    private (set)var avatarImage: UIImageView!
+    private (set)var headerImageView: UIImageView!
     
     var share: FloatingButton!
     var offset_HeaderStop:CGFloat = 40.0;
@@ -34,7 +34,7 @@ class ViewPhotoVC: UIViewController {
         self.tableView!.tableFooterView?.hidden = true
         self.tableView!.separatorStyle = UITableViewCellSeparatorStyle.None
         self.header = UIView(frame: CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.y, width: self.view.frame.size.width, height: 0))
-        UserHeaderView(image: image, height: headerViewHeight, inView: tableView, nav:self.navigationController)
+        UserHeaderView(image: image, height: headerViewHeight, inView: tableView, nav:self.navigationController, imgURL: imgURL)
         var img = images[0]
         links = [("",""),("Göni link", img.image_url), ("HTML","<a href=\"\(img.image_url)\"><img src=\"\(img.image_url)\"/></a>"), ("Markdown","[![image](\(img.image_url))](\(img.image_url))"),("bbcode","[url=\(img.image_url)][img]\(img.image_url)[/img][/url]")]
     
