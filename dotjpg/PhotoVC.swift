@@ -53,7 +53,6 @@ class PhotoVC: UIViewController, UIScrollViewDelegate, UINavigationControllerDel
         
         weakSelf = self as PhotoVC
         self.collectionView.headerViewRefreshAnimationStatus(.headerViewRefreshArrowAnimation, images: [])
-        
         self.collectionView.toLoadMoreAction({ () -> () in
             if ( !self.loadMoreStatus ) {
                 self.loadMoreStatus = true
@@ -69,6 +68,7 @@ class PhotoVC: UIViewController, UIScrollViewDelegate, UINavigationControllerDel
                 self.getPhoto()
             })
         })
+        self.collectionView.hide(true)
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -112,14 +112,11 @@ class PhotoVC: UIViewController, UIScrollViewDelegate, UINavigationControllerDel
         let currentOffset = scrollView.contentOffset.y
         let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
         let deltaOffset = maximumOffset - currentOffset
-        
-        
+  
         var frame: CGRect = self.navigationController!.navigationBar.frame
         var frameOfTabBar: CGRect = self.tabBarController!.tabBar.frame
         var size:CGFloat = frame.size.height - 21
-        
         var sizeT:CGFloat = CGFloat(bounds.height)
-        
         var framePercentageHidden:CGFloat = ((20 - frame.origin.y) / (frame.size.height - 1))
         var scrollOffset:CGFloat = scrollView.contentOffset.y
         var scrollDiff:CGFloat = scrollOffset - self.previousScrollViewYOffset
@@ -314,13 +311,22 @@ extension PhotoVC: APIProtocol {
                 self.isRefresh = false
                 weakSelf?.collectionView.reloadData()
                 weakSelf?.collectionView.doneRefresh()
+                collectionView.hide(false)
             }else{
                 loadMoreStatus = true
                 weakSelf?.collectionView.doneRefresh()
                 //weakSelf?.collectionView.endLoadMoreData()
+                collectionView.hide(true)
+                activityIndicator.startAnimating()
+                loadinLbl.hidden = false
             }
+        }else{
+            self.images = []
+            collectionView.reloadData()
+            collectionView.hide(true)
+            activityIndicator.startAnimating()
+            loadinLbl.hidden = false
         }
-
     }
 }
 

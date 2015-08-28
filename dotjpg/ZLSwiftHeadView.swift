@@ -292,6 +292,10 @@ public class ZLSwiftHeadView: UIView {
         return self.getViewControllerWithView(vcView.superview!)
     }
     
+    func hide(hide: Bool) {
+        self.headLabel.hidden = hide
+        self.activityView?.hidden = hide
+    }
     
     deinit{
         var scrollView = superview as? UIScrollView

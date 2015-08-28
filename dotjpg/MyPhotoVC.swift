@@ -67,6 +67,8 @@ class MyPhotoVC: UIViewController, UIScrollViewDelegate, UINavigationControllerD
                 self.getMyPhoto()
             })
         })
+        
+        self.collectionView.hide(true)
     }
     
     func getMyPhoto() {
@@ -114,7 +116,6 @@ class MyPhotoVC: UIViewController, UIScrollViewDelegate, UINavigationControllerD
         let currentOffset = scrollView.contentOffset.y
         let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
         let deltaOffset = maximumOffset - currentOffset
-        
         
         var frame: CGRect = self.navigationController!.navigationBar.frame
         var frameOfTabBar: CGRect = self.tabBarController!.tabBar.frame
@@ -313,16 +314,27 @@ extension MyPhotoVC: APIProtocol {
                     self.loadMoreStatus = false
                     self.pagination++
                 }
+                activityIndicator.stopAnimating()
+                loadinLbl.hidden = true
                 self.isRefresh = false
                 weakSelf?.collectionView.reloadData()
                 weakSelf?.collectionView.doneRefresh()
+                collectionView.hide(false)
             }else{
                 loadMoreStatus = true
                 weakSelf?.collectionView.doneRefresh()
                 //weakSelf?.collectionView.endLoadMoreData()
+                collectionView.hide(true)
+                activityIndicator.startAnimating()
+                loadinLbl.hidden = false
             }
+        }else{
+            self.images = []
+            collectionView.reloadData()
+            collectionView.hide(true)
+            activityIndicator.startAnimating()
+            loadinLbl.hidden = false
         }
-        activityIndicator.stopAnimating()
-        loadinLbl.hidden = true
+
     }
 }

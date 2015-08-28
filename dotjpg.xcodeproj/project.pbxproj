@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8E2EFC351B9082E1008EAFF9 /* launch.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E2EFC341B9082E1008EAFF9 /* launch.png */; };
+		8E2EFC391B908467008EAFF9 /* start.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E2EFC381B908467008EAFF9 /* start.png */; };
 		8E4406B41B7CAD150070A995 /* SelectedImagesForUploadVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4406B31B7CAD150070A995 /* SelectedImagesForUploadVC.swift */; };
 		8E4548391B7A06480059FCF6 /* JLToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4548361B7A06480059FCF6 /* JLToast.swift */; };
 		8E45483A1B7A06480059FCF6 /* JLToastCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4548371B7A06480059FCF6 /* JLToastCenter.swift */; };
@@ -54,6 +56,8 @@
 /* Begin PBXFileReference section */
 		2A5B85507698287FA9EECF0C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		2D80D78910ACC5C2A314C131 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		8E2EFC341B9082E1008EAFF9 /* launch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launch.png; sourceTree = "<group>"; };
+		8E2EFC381B908467008EAFF9 /* start.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = start.png; sourceTree = "<group>"; };
 		8E4406B31B7CAD150070A995 /* SelectedImagesForUploadVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedImagesForUploadVC.swift; sourceTree = "<group>"; };
 		8E4548361B7A06480059FCF6 /* JLToast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JLToast.swift; sourceTree = "<group>"; };
 		8E4548371B7A06480059FCF6 /* JLToastCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JLToastCenter.swift; sourceTree = "<group>"; };
@@ -141,6 +145,7 @@
 				8ED02E871B6B93F70056EA4F /* Main.storyboard */,
 				8ED02F341B6D1ACB0056EA4F /* PhotoCollectionView.xib */,
 				8ED02E8C1B6B93F70056EA4F /* LaunchScreen.xib */,
+				8E2EFC381B908467008EAFF9 /* start.png */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -213,6 +218,7 @@
 		8ED02E811B6B93F70056EA4F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				8E2EFC341B9082E1008EAFF9 /* launch.png */,
 				8ED02E831B6B93F70056EA4F /* AppDelegate.swift */,
 				8ED02E821B6B93F70056EA4F /* Info.plist */,
 			);
@@ -354,8 +360,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				8ED02E891B6B93F70056EA4F /* Main.storyboard in Resources */,
+				8E2EFC351B9082E1008EAFF9 /* launch.png in Resources */,
 				8EAFAADA1B6EB023006FF5BA /* Images.xcassets in Resources */,
 				8ED02F351B6D1ACB0056EA4F /* PhotoCollectionView.xib in Resources */,
+				8E2EFC391B908467008EAFF9 /* start.png in Resources */,
 				8ED02E8E1B6B93F70056EA4F /* LaunchScreen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

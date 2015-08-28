@@ -174,4 +174,9 @@ public class ZLSwiftFootView: UIView {
         }
         return self.getViewControllerWithView(vcView.superview!)
     }
+    
+    func hide(hide: Bool) {
+        self.footLabel.hidden = hide
+        self.hidden = hide
+    }
 }

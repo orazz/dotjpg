@@ -113,14 +113,23 @@ extension UIScrollView: UIScrollViewDelegate {
     }
     
     //MARK: endLoadMoreData
-    //数据加载完毕
     func endLoadMoreData() {
         var footView:ZLSwiftFootView = self.viewWithTag(ZLSwiftFootViewTag) as! ZLSwiftFootView
         footView.isEndLoadMore = true
     }
     
+    func hide(hide:Bool) {
+        if var headerView:ZLSwiftHeadView = self.viewWithTag(ZLSwiftHeadViewTag) as? ZLSwiftHeadView {
+            headerView.stopAnimation()
+            headerView.hide(hide)
+        }
+        var footView:ZLSwiftFootView = self.viewWithTag(ZLSwiftFootViewTag) as! ZLSwiftFootView
+        
+        footView.hide(hide)
+        
+    }
+    
     //MARK: doneRefersh
-    //完成刷新
     func doneRefresh(){
         if var headerView:ZLSwiftHeadView = self.viewWithTag(ZLSwiftHeadViewTag) as? ZLSwiftHeadView {
             headerView.stopAnimation()

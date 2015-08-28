@@ -47,7 +47,7 @@ class APIController {
             }
             }, failure: {(operation:AFHTTPRequestOperation!, error:NSError!) in
                 println("ERROR:"+error.localizedDescription)
-
+                self.delegate?.success(false, resultsArr: nil, results: nil)
         })
     }
     
