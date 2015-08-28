@@ -117,7 +117,7 @@ class PhotoVC: UIViewController, UIScrollViewDelegate, UINavigationControllerDel
         var frame: CGRect = self.navigationController!.navigationBar.frame
         var frameOfTabBar: CGRect = self.tabBarController!.tabBar.frame
         var size:CGFloat = frame.size.height - 21
-
+        
         var sizeT:CGFloat = CGFloat(bounds.height)
         
         var framePercentageHidden:CGFloat = ((20 - frame.origin.y) / (frame.size.height - 1))
@@ -128,33 +128,39 @@ class PhotoVC: UIViewController, UIScrollViewDelegate, UINavigationControllerDel
         
         if (scrollOffset <= -scrollView.contentInset.top) {
             frame.origin.y = 20;
-            UIView.animateWithDuration(0.3, delay: 0, options: .CurveEaseOut, animations: {
-                //self.newPhoto.alpha = 1
-                }, completion: { finished in
-            })
+            
         } else if ((scrollOffset + scrollHeight) >= scrollContentSizeHeight) {
             frame.origin.y = -size;
             frameOfTabBar.origin.y = sizeT - CGFloat(heightOfTabBar!)
             
             UIView.animateWithDuration(0.3, delay: 0, options: .CurveEaseOut, animations: {
-                //self.newPhoto.alpha = 1
+                self.newPhoto.alpha = 1
                 }, completion: { finished in
             })
         } else {
             frame.origin.y = min(20, max(-size, frame.origin.y - scrollDiff))
-    
+            
             frameOfTabBar.origin.y = max(sizeT - CGFloat(heightOfTabBar!), min(sizeT, frameOfTabBar.origin.y + scrollDiff))
+            
+        }
+        
+        if (self.previousScrollViewYOffset <= currentOffset) {
             UIView.animateWithDuration(0.3, delay: 0, options: .CurveEaseOut, animations: {
-                //self.newPhoto.alpha = 0
+                self.newPhoto.alpha = 0
+                }, completion: { finished in
+            })
+        }else{
+            UIView.animateWithDuration(0.3, delay: 0, options: .CurveEaseOut, animations: {
+                self.newPhoto.alpha = 1
                 }, completion: { finished in
             })
         }
-
+        
         self.tabBarController?.tabBar.frame = frameOfTabBar
         self.navigationController?.navigationBar.frame = frame
         self.updateBarButtonItems(1 - framePercentageHidden)
         self.previousScrollViewYOffset = scrollOffset
-
+        
     }
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
