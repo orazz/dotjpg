@@ -35,7 +35,6 @@ class PhotoVC: UIViewController, UIScrollViewDelegate, UINavigationControllerDel
         getPhoto()
         newPhoto.setup()
         activityIndicator.startAnimating()
-        
 
         let cellWidth = (UIScreen.mainScreen().bounds.width) - 15
         let cellLayout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
@@ -81,11 +80,6 @@ class PhotoVC: UIViewController, UIScrollViewDelegate, UINavigationControllerDel
         super.viewDidDisappear(animated)
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     func getPhoto() {
         self.isRefresh = true
         self.api = APIController()
@@ -95,7 +89,7 @@ class PhotoVC: UIViewController, UIScrollViewDelegate, UINavigationControllerDel
     
     class func scaleUIImageToSize(let image: UIImage, let size: CGSize) -> UIImage {
         let hasAlpha = false
-        let scale: CGFloat = 0.0 // Automatically use scale factor of main screen
+        let scale: CGFloat = 0.0
         
         UIGraphicsBeginImageContextWithOptions(size, !hasAlpha, scale)
         image.drawInRect(CGRect(origin: CGPointZero, size: size))
@@ -106,6 +100,7 @@ class PhotoVC: UIViewController, UIScrollViewDelegate, UINavigationControllerDel
         return scaledImage
     }
     
+    //MARK: - Navigation Bar and TabBar config
     func scrollViewWillBeginDragging(scrollView: UIScrollView) {
         previousTableViewYOffset = scrollView.contentOffset.y
     }
@@ -180,12 +175,14 @@ class PhotoVC: UIViewController, UIScrollViewDelegate, UINavigationControllerDel
         }
     }
     
+    //MARK: - Left right buttons items hide show
     func updateBarButtonItems(alpha:CGFloat){
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor().colorWithAlphaComponent(alpha)]
         self.navigationItem.titleView?.alpha = alpha
         self.navigationController?.navigationBar.tintColor = self.navigationController?.navigationBar.tintColor.colorWithAlphaComponent(alpha)
     }
     
+    //MARK: - Animate navigation bar
     func animateNavBarTo(y: CGFloat){
         UIView.animateWithDuration(0.2, animations: {
             var frame = self.navigationController?.navigationBar.frame
@@ -197,14 +194,11 @@ class PhotoVC: UIViewController, UIScrollViewDelegate, UINavigationControllerDel
         })
     }
     
+    //MARK: - Multiple image select
     func selectMultipleImage(sender:UIButton) {
         var elcPikcer = ELCImagePickerController()
         elcPikcer.maximumImagesCount = 6; //Set the maximum number of images to select, defaults to 4
-        //elcPikcer.returnsOriginalImage = false; //Only return the fullScreenImage, not the fullResolutionImage
-        //elcPikcer.returnsImage = true; //Return UIimage if YES. If NO, only return asset location information
-        //elcPikcer.onOrder = true; //For multiple image selection, display and return selected order of images
         elcPikcer.imagePickerDelegate = self;
-        
         self.presentViewController(elcPikcer, animated: true, completion: nil)
     }
 }

@@ -55,7 +55,6 @@ class MyPhotoVC: UIViewController, UIScrollViewDelegate, UINavigationControllerD
        self.collectionView.toLoadMoreAction({ () -> () in
             if ( !self.loadMoreStatus ) {
                 self.loadMoreStatus = true
-                println(self.pagination)
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
                     self.api.clientRequest(["controller":"image", "action":"getAll", "page":self.pagination], objectForKey: "data")
                 }
@@ -79,7 +78,6 @@ class MyPhotoVC: UIViewController, UIScrollViewDelegate, UINavigationControllerD
     
     override func viewDidDisappear(animated: Bool) {
         var frame = self.navigationController?.navigationBar.frame
-        //self.tabBarController?.tabBar.frame.origin.y = CGFloat(bounds.height) - self.tabBarController!.tabBar.frame.height
         frame?.origin.y = 20
         self.navigationController?.navigationBar.frame = frame!
         updateBarButtonItems(1)
@@ -104,6 +102,7 @@ class MyPhotoVC: UIViewController, UIScrollViewDelegate, UINavigationControllerD
         return scaledImage
     }
     
+    //MARK: - Navigation Bar and TabBar hide show
     func scrollViewWillBeginDragging(scrollView: UIScrollView) {
         previousTableViewYOffset = scrollView.contentOffset.y
     }
@@ -131,28 +130,34 @@ class MyPhotoVC: UIViewController, UIScrollViewDelegate, UINavigationControllerD
         
         if (scrollOffset <= -scrollView.contentInset.top) {
             frame.origin.y = 20;
-            UIView.animateWithDuration(0.3, delay: 0, options: .CurveEaseOut, animations: {
-                //self.newPhoto.alpha = 1
-                }, completion: { finished in
-            })
+            
         } else if ((scrollOffset + scrollHeight) >= scrollContentSizeHeight) {
             frame.origin.y = -size;
             frameOfTabBar.origin.y = sizeT - CGFloat(heightOfTabBar!)
             
             UIView.animateWithDuration(0.3, delay: 0, options: .CurveEaseOut, animations: {
-                //self.newPhoto.alpha = 1
+                self.floatingBtn.alpha = 1
                 }, completion: { finished in
             })
         } else {
             frame.origin.y = min(20, max(-size, frame.origin.y - scrollDiff))
             
             frameOfTabBar.origin.y = max(sizeT - CGFloat(heightOfTabBar!), min(sizeT, frameOfTabBar.origin.y + scrollDiff))
+           
+        }
+        
+        if (self.previousScrollViewYOffset <= currentOffset) {
             UIView.animateWithDuration(0.3, delay: 0, options: .CurveEaseOut, animations: {
-                //self.newPhoto.alpha = 0
+                self.floatingBtn.alpha = 0
+                }, completion: { finished in
+            })
+        }else{
+            UIView.animateWithDuration(0.3, delay: 0, options: .CurveEaseOut, animations: {
+                self.floatingBtn.alpha = 1
                 }, completion: { finished in
             })
         }
-        
+
         self.tabBarController?.tabBar.frame = frameOfTabBar
         self.navigationController?.navigationBar.frame = frame
         self.updateBarButtonItems(1 - framePercentageHidden)
@@ -180,14 +185,9 @@ class MyPhotoVC: UIViewController, UIScrollViewDelegate, UINavigationControllerD
     }
     
     func updateBarButtonItems(alpha:CGFloat){
-        // var leftBarButtonItems = [self.navigationItem.leftBarButtonItem!]
-        //for barItem in leftBarButtonItems {
-        //   barItem.customView?.alpha = alpha
-        //}
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor().colorWithAlphaComponent(alpha)]
         self.navigationItem.titleView?.alpha = alpha
         self.navigationController?.navigationBar.tintColor = self.navigationController?.navigationBar.tintColor.colorWithAlphaComponent(alpha)
-        
     }
     
     func animateNavBarTo(y: CGFloat){
@@ -205,35 +205,18 @@ class MyPhotoVC: UIViewController, UIScrollViewDelegate, UINavigationControllerD
         
         var elcPikcer = ELCImagePickerController()
         elcPikcer.maximumImagesCount = 6; //Set the maximum number of images to select, defaults to 4
-        //elcPikcer.returnsOriginalImage = false; //Only return the fullScreenImage, not the fullResolutionImage
-        //elcPikcer.returnsImage = true; //Return UIimage if YES. If NO, only return asset location information
-        //elcPikcer.onOrder = true; //For multiple image selection, display and return selected order of images
         elcPikcer.imagePickerDelegate = self;
         
         self.presentViewController(elcPikcer, animated: true, completion: nil)
-        
-        //let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        //var selectImage = storyboard.instantiateViewControllerWithIdentifier("MulipleImageSelectVC") as! MultipleImageSelectVC
-        
-        //self.navigationController?.pushViewController(selectImage, animated: true)
-        
-        // self.navigationController?.radialPushViewController(selectImage,startFrame: sender.frame,duration:0.3,transitionCompletion: { () -> Void in
-        
-        
-        
-        //})
     }
 }
 extension MyPhotoVC: ELCImagePickerControllerDelegate {
+    
+    //MARK: - ImagePikcer
     func elcImagePickerController(picker: ELCImagePickerController!, didFinishPickingMediaWithInfo info: [AnyObject]!) {
         var i = 0
         var names = [String]()
         for dictionary in info {
-            //var image = dictionary[UIImagePickerControllerOriginalImage] as! UIImage//ELC packages its dictionaries with the same key as UIImagePicker
-            // var fileData = UIImagePNGRepresentation(image);
-            
-            // ... the rest of your code ... //
-            
             let imageURL = dictionary[UIImagePickerControllerReferenceURL] as! NSURL
             
             let imageName = "\(i)-\(imageURL.path!.lastPathComponent)"
@@ -252,19 +235,13 @@ extension MyPhotoVC: ELCImagePickerControllerDelegate {
         }
         
         let pc = self.storyboard!.instantiateViewControllerWithIdentifier("SelectedImagesForUploadVC") as! SelectedImagesForUploadVC
-        //pc.setAssets(selectedAssets)
         pc.names = names
         pc.urls = self.photoURLs
         
         dismissViewControllerAnimated(true, completion: {
             () -> () in
-            //self.presentViewController(pc, animated: true, completion: nil)
             self.navigationController!.pushViewController(pc, animated: true)
-            //self.presentViewController(pc, animated: true, completion: nil)
         })
-        
-        //self.api.imageUploader(["controller":"image","action":"fileUpload"], fileURLs: self.photoURLs, names: names)
-        //self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     func elcImagePickerControllerDidCancel(picker: ELCImagePickerController!) {
@@ -274,6 +251,7 @@ extension MyPhotoVC: ELCImagePickerControllerDelegate {
 
 extension MyPhotoVC: UICollectionViewDataSource, UICollectionViewDelegate {
     
+    //MARK: - CollectionView
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return images.count ?? 0
     }
@@ -306,6 +284,7 @@ extension MyPhotoVC: UICollectionViewDataSource, UICollectionViewDelegate {
 }
 
 extension MyPhotoVC : UICollectionViewDelegateFlowLayout {
+    
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         let targetWidth: CGFloat = (self.collectionView.bounds.width - 2 * 8)
         var image = self.images[indexPath.row]
