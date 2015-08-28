@@ -36,6 +36,7 @@ class PhotoVC: UIViewController, UIScrollViewDelegate, UINavigationControllerDel
         newPhoto.setup()
         activityIndicator.startAnimating()
         
+
         let cellWidth = (UIScreen.mainScreen().bounds.width) - 15
         let cellLayout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
         cellLayout.itemSize = CGSize(width: cellWidth, height: cellWidth)
@@ -46,7 +47,7 @@ class PhotoVC: UIViewController, UIScrollViewDelegate, UINavigationControllerDel
         tabBar?.tintColor = UIColor.whiteColor()
         newPhoto.tintColor = UIColor.whiteColor()
         navigationItem.title = "dotjpg"
-        var exampleImage = UIImage(named: "ic_image")?.imageWithRenderingMode(.AlwaysTemplate)
+        var exampleImage = UIImage(named: "ic_add_image")?.imageWithRenderingMode(.AlwaysTemplate)
         newPhoto.addTarget(self, action: Selector("selectMultipleImage:"), forControlEvents: .TouchUpInside)
         newPhoto.setImage(exampleImage, forState: UIControlState.Normal)
         newPhoto.tintColor = UIColor.whiteColor()

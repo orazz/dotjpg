@@ -31,13 +31,12 @@ class ViewPhotoVC: UIViewController {
         
         tableView!.estimatedRowHeight = 100
         tableView!.rowHeight = UITableViewAutomaticDimension
-        self.tableView!.tableFooterView?.hidden = true
-        self.tableView!.separatorStyle = UITableViewCellSeparatorStyle.None
+        self.tableView!.tableFooterView = UIView(frame: CGRectZero)
+        self.tableView.separatorColor = UIColor.MKColor.Teal
         self.header = UIView(frame: CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.y, width: self.view.frame.size.width, height: 0))
         UserHeaderView(image: image, height: headerViewHeight, inView: tableView, nav:self.navigationController, imgURL: imgURL)
         var img = images[0]
         links = [("",""),("Göni link", img.image_url), ("HTML","<a href=\"\(img.image_url)\"><img src=\"\(img.image_url)\"/></a>"), ("Markdown","[![image](\(img.image_url))](\(img.image_url))"),("bbcode","[url=\(img.image_url)][img]\(img.image_url)[/img][/url]")]
-    
         
         self.view.addSubview(header)
         
@@ -136,9 +135,9 @@ extension ViewPhotoVC: UITableViewDataSource, UITableViewDelegate, UITextFieldDe
         }else{
             if let cellR = tableView.dequeueReusableCellWithIdentifier("CellLinks") as? ViewPhotoCellLinks {
                 cellR.titleLbl.text = links[indexPath.row].0
-                cellR.textView.text = links[indexPath.row].1
+                cellR.link.text = links[indexPath.row].1
                 var tapRecognizer = UITapGestureRecognizer(target: self, action: Selector("copyTapped"))
-                cellR.textView.addGestureRecognizer(tapRecognizer)
+                cellR.link.addGestureRecognizer(tapRecognizer)
                 
                 cell = cellR
             }
@@ -149,8 +148,18 @@ extension ViewPhotoVC: UITableViewDataSource, UITableViewDelegate, UITextFieldDe
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if (indexPath.row == 0) {
-            UIImageWriteToSavedPhotosAlbum(image, self, Selector("image:didFinishSavingWithError:contextInfo:"), nil)
+            var selectedCell = self.tableView.cellForRowAtIndexPath(indexPath) as? ViewPhotoCell
+            selectedCell?.activityIndicator.startAnimating()
+            selectedCell?.timeIcon.hidden = true
+            
+            if image == nil {
+                SweetAlert().showAlert("Ýalňyşlyk!", subTitle: "Täzeden synanşyp görüň", style: AlertStyle.Error)
+            }else{
+                UIImageWriteToSavedPhotosAlbum(image, self, Selector("image:didFinishSavingWithError:contextInfo:"), nil)
+            }
             self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
+            selectedCell?.activityIndicator.stopAnimating()
+            selectedCell?.timeIcon.hidden = false
         }else{
             UIPasteboard.generalPasteboard().string = self.images[0].image_url
             JLToast.makeText("Link nusgalandy.", delay: 0, duration: 2).show()
@@ -158,7 +167,7 @@ extension ViewPhotoVC: UITableViewDataSource, UITableViewDelegate, UITextFieldDe
         }
     }
     
-    func image(image: UIImage, didFinishSavingWithError error: NSErrorPointer, contextInfo: UnsafePointer<()>) {
+    func image(image: UIImage, didFinishSavingWithError error: NSError?, contextInfo: UnsafePointer<()>) {
         dispatch_async(dispatch_get_main_queue(), {
             SweetAlert().showAlert("Üstünlikli!", subTitle: "Suratyňyz üstünlikli indirildi", style: AlertStyle.Success)
         })
@@ -213,19 +222,18 @@ extension ViewPhotoVC: UITableViewDataSource, UITableViewDelegate, UITextFieldDe
     
 }
 class ViewPhotoCell: UITableViewCell {
+    @IBOutlet weak var timeIcon: UIImageView!
     @IBOutlet weak var download: UILabel!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 }
 
 class ViewPhotoCellLinks: UITableViewCell {
     @IBOutlet weak var titleLbl: UILabel!
-    @IBOutlet weak var textView: MKTextView!
     private var bottomBorderLayer: CALayer?
+    @IBOutlet weak var link: UILabel!
     
     override func awakeFromNib() {
-        super.awakeFromNib()
-        textView.bottomBorderEnabled = true
-        textView.sizeToFit()
-        textView.font = UIFont(name: "Hevletica", size: 16.0)
+        super.awakeFromNib()        
     }
 }
 

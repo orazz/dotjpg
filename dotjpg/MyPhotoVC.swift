@@ -44,7 +44,7 @@ class MyPhotoVC: UIViewController, UIScrollViewDelegate, UINavigationControllerD
         tabBar?.tintColor = UIColor.whiteColor()
         floatingBtn.tintColor = UIColor.whiteColor()
         navigationItem.title = "Ýüklenenler"
-        var exampleImage = UIImage(named: "ic_image")?.imageWithRenderingMode(.AlwaysTemplate)
+        var exampleImage = UIImage(named: "ic_add_image")?.imageWithRenderingMode(.AlwaysTemplate)
         floatingBtn.addTarget(self, action: Selector("selectMultipleImage:"), forControlEvents: .TouchUpInside)
         floatingBtn.setImage(exampleImage, forState: UIControlState.Normal)
         floatingBtn.tintColor = UIColor.whiteColor()

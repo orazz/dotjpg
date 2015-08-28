@@ -78,7 +78,7 @@
 		8ED02E931B6B93F80056EA4F /* dotjpgTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = dotjpgTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8ED02E981B6B93F80056EA4F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8ED02E991B6B93F80056EA4F /* dotjpgTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dotjpgTests.swift; sourceTree = "<group>"; };
-		8ED02EA31B6BAA6E0056EA4F /* dotjpg-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "dotjpg-Bridging-Header.h"; sourceTree = "<group>"; };
+		8ED02EA31B6BAA6E0056EA4F /* dotjpg-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "dotjpg-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		8ED02EAA1B6CDF900056EA4F /* Images.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		8ED02EAC1B6CE0760056EA4F /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		8ED02EAF1B6CE8930056EA4F /* APIController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIController.swift; sourceTree = "<group>"; };
@@ -130,6 +130,21 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		8E2EFC331B8F484B008EAFF9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8ED02EB51B6D0A660056EA4F /* PhotoVC.swift */,
+				8E4406B31B7CAD150070A995 /* SelectedImagesForUploadVC.swift */,
+				8E63FC641B6F9BEF00ACFF0E /* ViewPhotoVC.swift */,
+				8E4548431B7A42B70059FCF6 /* ViewImageVC.swift */,
+				8E4A8DE01B8C9FEE00B27865 /* MyPhotoVC.swift */,
+				8ED02E871B6B93F70056EA4F /* Main.storyboard */,
+				8ED02F341B6D1ACB0056EA4F /* PhotoCollectionView.xib */,
+				8ED02E8C1B6B93F70056EA4F /* LaunchScreen.xib */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		8E4548351B7A06390059FCF6 /* Toast */ = {
 			isa = PBXGroup;
 			children = (
@@ -167,7 +182,6 @@
 				8ED02E7F1B6B93F70056EA4F /* Products */,
 				11AF735F7336C69C79CDF79F /* Pods */,
 				5CC9C26694D698B059FC24D1 /* Frameworks */,
-				8ED02EA31B6BAA6E0056EA4F /* dotjpg-Bridging-Header.h */,
 			);
 			sourceTree = "<group>";
 		};
@@ -189,14 +203,7 @@
 				8E63FC601B6F7BD000ACFF0E /* Activity Indicator */,
 				8ED02EAE1B6CE87A0056EA4F /* Controller */,
 				8ED02EA91B6CDF720056EA4F /* Models */,
-				8ED02EB51B6D0A660056EA4F /* PhotoVC.swift */,
-				8E4406B31B7CAD150070A995 /* SelectedImagesForUploadVC.swift */,
-				8E63FC641B6F9BEF00ACFF0E /* ViewPhotoVC.swift */,
-				8E4548431B7A42B70059FCF6 /* ViewImageVC.swift */,
-				8E4A8DE01B8C9FEE00B27865 /* MyPhotoVC.swift */,
-				8ED02E871B6B93F70056EA4F /* Main.storyboard */,
-				8ED02F341B6D1ACB0056EA4F /* PhotoCollectionView.xib */,
-				8ED02E8C1B6B93F70056EA4F /* LaunchScreen.xib */,
+				8E2EFC331B8F484B008EAFF9 /* Views */,
 				8EAFAAD91B6EB023006FF5BA /* Images.xcassets */,
 				8ED02E811B6B93F70056EA4F /* Supporting Files */,
 			);
@@ -232,6 +239,7 @@
 		8ED02EA91B6CDF720056EA4F /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				8ED02EA31B6BAA6E0056EA4F /* dotjpg-Bridging-Header.h */,
 				8ED02EAC1B6CE0760056EA4F /* Config.swift */,
 				8ED02EAA1B6CDF900056EA4F /* Images.swift */,
 			);
