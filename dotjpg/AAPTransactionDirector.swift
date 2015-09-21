@@ -44,7 +44,7 @@ class AAPTransactionDirector: NSObject,UIViewControllerAnimatedTransitioning,UIN
             
            
             
-            self._context?.containerView().layer.timeOffset = CFTimeInterval(_percent*self.duration!)
+            self._context?.containerView()!.layer.timeOffset = CFTimeInterval(_percent*self.duration!)
             if (self._context != nil) {
     
                 self.interactiveUpdateBlock?(transactionContext:_context!,percent:_percent)
@@ -58,7 +58,7 @@ class AAPTransactionDirector: NSObject,UIViewControllerAnimatedTransitioning,UIN
     }
     var timeOffset:CFTimeInterval{
         get {
-            return self._context!.containerView().layer.timeOffset
+            return self._context!.containerView()!.layer.timeOffset
         }
         set {
             self.precent = CGFloat(CGFloat(newValue)/self.duration!)
@@ -74,7 +74,7 @@ class AAPTransactionDirector: NSObject,UIViewControllerAnimatedTransitioning,UIN
     * run to end interactive transaction
     *
     */
-    func endInteractiveTranscation(#canceled: Bool , endBlock:()->Void){
+    func endInteractiveTranscation(canceled canceled: Bool , endBlock:()->Void){
         self.interactiveEndBlock=endBlock
         if canceled {
                   _context?.cancelInteractiveTransition()
@@ -117,7 +117,7 @@ class AAPTransactionDirector: NSObject,UIViewControllerAnimatedTransitioning,UIN
     }
     
     private func transitionFinishedCanceling(){
-        self._context?.containerView().layer.timeOffset=0
+        self._context?.containerView()!.layer.timeOffset=0
         displayLink?.invalidate()
   
         _context?.completeTransition(false)
@@ -149,7 +149,7 @@ class AAPTransactionDirector: NSObject,UIViewControllerAnimatedTransitioning,UIN
 
 
 //MARK: animation transaction delegate
-    func transitionDuration(transitionContext: UIViewControllerContextTransitioning) -> NSTimeInterval{
+    func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval{
         
         return NSTimeInterval(self.duration!);
     }
@@ -158,8 +158,8 @@ class AAPTransactionDirector: NSObject,UIViewControllerAnimatedTransitioning,UIN
         self._context=transitionContext
       
   
-        var v1=transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!.view
-        var v2=transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!.view
+        _=transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!.view
+        _=transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!.view
         
      
         

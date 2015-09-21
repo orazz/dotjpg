@@ -58,42 +58,42 @@ extension Double {
 }
 
 func imageWithImage(sourceImage: UIImage, i_width:CGFloat) -> UIImage {
-    var oldWidth = sourceImage.size.width
-    var scaleFactor = i_width / oldWidth
-    var newHeight = sourceImage.size.height * scaleFactor
-    var newWidth = oldWidth * scaleFactor
+    let oldWidth = sourceImage.size.width
+    let scaleFactor = i_width / oldWidth
+    let newHeight = sourceImage.size.height * scaleFactor
+    let newWidth = oldWidth * scaleFactor
     
     UIGraphicsBeginImageContext(CGSizeMake(newWidth, newHeight))
     sourceImage.drawInRect(CGRectMake(0, 0, newWidth, newHeight))
-    var newImage = UIGraphicsGetImageFromCurrentImageContext()
+    let newImage = UIGraphicsGetImageFromCurrentImageContext()
     UIGraphicsEndImageContext()
     return newImage
 }
 extension NSDate {
     func yearsFrom(date:NSDate)   -> Int {
-        return NSCalendar.currentCalendar().components(.CalendarUnitYear, fromDate: date, toDate: self, options: nil).year
+        return NSCalendar.currentCalendar().components(.Year, fromDate: date, toDate: self, options: []).year
     }
     func monthsFrom(date:NSDate)  -> Int {
-        return NSCalendar.currentCalendar().components(.CalendarUnitMonth, fromDate: date, toDate: self, options: nil).month
+        return NSCalendar.currentCalendar().components(.Month, fromDate: date, toDate: self, options: []).month
     }
     func weeksFrom(date:NSDate)   -> Int {
-        return NSCalendar.currentCalendar().components(.CalendarUnitWeekOfYear, fromDate: date, toDate: self, options: nil).weekOfYear
+        return NSCalendar.currentCalendar().components(.WeekOfYear, fromDate: date, toDate: self, options: []).weekOfYear
     }
     func daysFrom(date:NSDate)    -> Int {
-        return NSCalendar.currentCalendar().components(.CalendarUnitDay, fromDate: date, toDate: self, options: nil).day
+        return NSCalendar.currentCalendar().components(.Day, fromDate: date, toDate: self, options: []).day
     }
     func hoursFrom(date:NSDate)   -> Int {
-        return NSCalendar.currentCalendar().components(.CalendarUnitHour, fromDate: date, toDate: self, options: nil).hour
+        return NSCalendar.currentCalendar().components(.Hour, fromDate: date, toDate: self, options: []).hour
     }
     func minutesFrom(date:NSDate) -> Int {
-        return NSCalendar.currentCalendar().components(.CalendarUnitMinute, fromDate: date, toDate: self, options: nil).minute
+        return NSCalendar.currentCalendar().components(.Minute, fromDate: date, toDate: self, options: []).minute
     }
     func secondsFrom(date:NSDate) -> Int {
-        return NSCalendar.currentCalendar().components(.CalendarUnitSecond, fromDate: date, toDate: self, options: nil).second
+        return NSCalendar.currentCalendar().components(.Second, fromDate: date, toDate: self, options: []).second
     }
     var relativeTime: String {
         let now = NSDate()
-        let humanDate = GetHumanDate(self, "off")
+        let humanDate = GetHumanDate(self, showtime: "off")
         if now.yearsFrom(self)   > 0 {
             //return now.yearsFrom(self).description  + " ýyl"  + { return now.yearsFrom(self)   > 1 ? "" : "" }() + " öň, \(humanDate)"
             return "\(humanDate)"
@@ -130,12 +130,12 @@ func GetHumanDate(date: NSDate, showtime: String?) -> String
 {
     let form = NSDateFormatter()
     form.dateFormat = "yyyy-MM-dd"
-    var today: String = form.stringFromDate(NSDate())
-    var checkDate: String = form.stringFromDate(date)
+    let today: String = form.stringFromDate(NSDate())
+    let checkDate: String = form.stringFromDate(date)
     
     let formatter = NSDateFormatter()
     formatter.dateFormat = "yyyy-MM-dd hh:mm:s"
-    var date: String = formatter.stringFromDate(date)
+    let date: String = formatter.stringFromDate(date)
     
     let y: String = (date as NSString).substringToIndex(4)
     let m: String = (date as NSString).substringWithRange(NSMakeRange(5, 2))

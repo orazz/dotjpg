@@ -25,14 +25,14 @@ extension UIScrollView: UIScrollViewDelegate {
     
     public var headerRefreshView: ZLSwiftHeadView? {
         get {
-            var headerRefreshView = viewWithTag(ZLSwiftHeadViewTag)
+            let headerRefreshView = viewWithTag(ZLSwiftHeadViewTag)
             return headerRefreshView as? ZLSwiftHeadView
         }
     }
     
     public var footerRefreshView: ZLSwiftFootView? {
         get {
-            var footerRefreshView = viewWithTag(ZLSwiftFootViewTag)
+            let footerRefreshView = viewWithTag(ZLSwiftFootViewTag)
             return footerRefreshView as? ZLSwiftFootView
         }
     }
@@ -43,7 +43,7 @@ extension UIScrollView: UIScrollViewDelegate {
         
         self.alwaysBounceVertical = true
         if self.headerRefreshView == nil{
-            var headView:ZLSwiftHeadView = ZLSwiftHeadView(action: action,frame: CGRectMake(0, -ZLSwithRefreshHeadViewHeight, self.frame.size.width, ZLSwithRefreshHeadViewHeight))
+            let headView:ZLSwiftHeadView = ZLSwiftHeadView(action: action,frame: CGRectMake(0, -ZLSwithRefreshHeadViewHeight, self.frame.size.width, ZLSwithRefreshHeadViewHeight))
             headView.scrollView = self
             headView.tag = ZLSwiftHeadViewTag
             self.addSubview(headView)
@@ -64,7 +64,7 @@ extension UIScrollView: UIScrollViewDelegate {
         self.alwaysBounceVertical = true
         loadMoreAction = action
         if self.footerRefreshView == nil {
-            var footView = ZLSwiftFootView(action: action, frame: CGRectMake( 0 , UIScreen.mainScreen().bounds.size.height - ZLSwithRefreshFootViewHeight, self.frame.size.width, ZLSwithRefreshFootViewHeight))
+            let footView = ZLSwiftFootView(action: action, frame: CGRectMake( 0 , UIScreen.mainScreen().bounds.size.height - ZLSwithRefreshFootViewHeight, self.frame.size.width, ZLSwithRefreshFootViewHeight))
             footView.scrollView = self
             footView.tag = ZLSwiftFootViewTag
             self.addSubview(footView)
@@ -76,7 +76,7 @@ extension UIScrollView: UIScrollViewDelegate {
     func nowRefresh(action :(() -> Void)){
         self.alwaysBounceVertical = true
         if self.headerRefreshView == nil {
-            var headView:ZLSwiftHeadView = ZLSwiftHeadView(action: action,frame: CGRectMake(0, -ZLSwithRefreshHeadViewHeight, self.frame.size.width, ZLSwithRefreshHeadViewHeight))
+            let headView:ZLSwiftHeadView = ZLSwiftHeadView(action: action,frame: CGRectMake(0, -ZLSwithRefreshHeadViewHeight, self.frame.size.width, ZLSwithRefreshHeadViewHeight))
             headView.scrollView = self
             headView.tag = ZLSwiftHeadViewTag
             self.addSubview(headView)
@@ -91,7 +91,7 @@ extension UIScrollView: UIScrollViewDelegate {
     func headerViewRefreshAnimationStatus(status:HeaderViewRefreshAnimationStatus, images:[UIImage]){
         // 箭头动画是自带的效果
         if self.headerRefreshView == nil {
-            var headView:ZLSwiftHeadView = ZLSwiftHeadView(action: {},frame: CGRectMake(0, -ZLSwithRefreshHeadViewHeight, self.frame.size.width, ZLSwithRefreshHeadViewHeight))
+            let headView:ZLSwiftHeadView = ZLSwiftHeadView(action: {},frame: CGRectMake(0, -ZLSwithRefreshHeadViewHeight, self.frame.size.width, ZLSwithRefreshHeadViewHeight))
             headView.scrollView = self
             headView.tag = ZLSwiftHeadViewTag
             self.addSubview(headView)
@@ -114,16 +114,16 @@ extension UIScrollView: UIScrollViewDelegate {
     
     //MARK: endLoadMoreData
     func endLoadMoreData() {
-        var footView:ZLSwiftFootView = self.viewWithTag(ZLSwiftFootViewTag) as! ZLSwiftFootView
+        let footView:ZLSwiftFootView = self.viewWithTag(ZLSwiftFootViewTag) as! ZLSwiftFootView
         footView.isEndLoadMore = true
     }
     
     func hide(hide:Bool) {
-        if var headerView:ZLSwiftHeadView = self.viewWithTag(ZLSwiftHeadViewTag) as? ZLSwiftHeadView {
+        if let headerView:ZLSwiftHeadView = self.viewWithTag(ZLSwiftHeadViewTag) as? ZLSwiftHeadView {
             headerView.stopAnimation()
             headerView.hide(hide)
         }
-        var footView:ZLSwiftFootView = self.viewWithTag(ZLSwiftFootViewTag) as! ZLSwiftFootView
+        let footView:ZLSwiftFootView = self.viewWithTag(ZLSwiftFootViewTag) as! ZLSwiftFootView
         
         footView.hide(hide)
         
@@ -131,7 +131,7 @@ extension UIScrollView: UIScrollViewDelegate {
     
     //MARK: doneRefersh
     func doneRefresh(){
-        if var headerView:ZLSwiftHeadView = self.viewWithTag(ZLSwiftHeadViewTag) as? ZLSwiftHeadView {
+        if let headerView:ZLSwiftHeadView = self.viewWithTag(ZLSwiftHeadViewTag) as? ZLSwiftHeadView {
             headerView.stopAnimation()
         }
         refreshStatus = .Normal

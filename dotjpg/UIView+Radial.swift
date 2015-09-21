@@ -28,10 +28,10 @@ class LayerAnimator : NSObject{
           self.caAnimation?.delegate=self
         self.complitionBlock=block;
         
-        self.animLayer?.addAnimation(self.caAnimation, forKey: "anim")
+        self.animLayer?.addAnimation(self.caAnimation!, forKey: "anim")
     }
     
-    override func animationDidStop(anim: CAAnimation!, finished flag: Bool) {
+    override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
         self.complitionBlock?()
     }
     

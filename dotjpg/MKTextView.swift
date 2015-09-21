@@ -22,7 +22,7 @@ class MKTextView: UITextView {
                 bottomBorderLayer = CALayer()
                 bottomBorderLayer?.frame = CGRect(x: 0, y: self.layer.bounds.height - 1, width: self.bounds.width, height: 1)
                 bottomBorderLayer?.backgroundColor = UIColor.grayColor().colorWithAlphaComponent(0.2).CGColor
-                self.layer.addSublayer(bottomBorderLayer)
+                self.layer.addSublayer(bottomBorderLayer!)
             }
         }
     }
@@ -67,7 +67,7 @@ class MKTextView: UITextView {
     override var contentInset: UIEdgeInsets { didSet { setNeedsDisplay() } }
     
     /** Setting font needs a call to setNeedsDisplay() */
-    override var font: UIFont! { didSet { setNeedsDisplay() } }
+    override var font: UIFont? { didSet { setNeedsDisplay() } }
     
     /** Setting text alignment needs a call to setNeedsDisplay() */
     override var textAlignment: NSTextAlignment { didSet { setNeedsDisplay() } }
@@ -85,7 +85,7 @@ class MKTextView: UITextView {
     /** Override coder init, for IB/XIB compatibility */
     #if !TARGET_INTERFACE_BUILDER
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setUpInit()
         listenForTextChangedNotifications()
@@ -106,9 +106,9 @@ class MKTextView: UITextView {
     //MARK: private
     
     private func setUpInit() {
-        for constraint in self.constraints() {
+        for constraint in self.constraints {
             if constraint.firstAttribute == NSLayoutAttribute.Height {
-                self.heightConstraint = constraint as? NSLayoutConstraint;
+                self.heightConstraint = constraint
                 break;
             }
         }
@@ -164,7 +164,7 @@ class MKTextView: UITextView {
         super.drawRect(rect)
         
         // in case we don't have a text, put the placeholder (if any)
-        if count(self.text) == 0 && self.placeholder != nil {
+        if self.text.characters.count == 0 && self.placeholder != nil {
             let baseRect = placeholderBoundsContainedIn(self.bounds)
             let font = self.font ?? self.typingAttributes[NSFontAttributeName] as? UIFont ?? UIFont.systemFontOfSize(UIFont.systemFontSize())
             
@@ -189,9 +189,9 @@ class MKTextView: UITextView {
         let baseRect = UIEdgeInsetsInsetRect(containerBounds, UIEdgeInsetsMake(kPlaceholderTextViewInsetSpan, kPlaceholderTextViewInsetSpan, 0, 0))
         
         // adjust typing and selection attributes
-        if typingAttributes != nil {
+        if typingAttributes.count > 0 {
             if let paragraphStyle = typingAttributes[NSParagraphStyleAttributeName] as? NSParagraphStyle {
-                baseRect.rectByOffsetting(dx: paragraphStyle.headIndent, dy: paragraphStyle.firstLineHeadIndent)
+                baseRect.offsetBy(dx: paragraphStyle.headIndent, dy: paragraphStyle.firstLineHeadIndent)
             }
         }
         

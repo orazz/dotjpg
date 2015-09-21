@@ -15,7 +15,7 @@ class ViewPhotoVC: UIViewController {
     var images = [Images]()
     private (set)var headerViewHeight: CGFloat = 200.0
     var image: UIImage!
-    var links = [String,String]()
+    var links = [["":""]]
     var imgURL: NSURL!
     private (set)var header: UIView!
     private (set)var avatarImage: UIImageView!
@@ -35,8 +35,8 @@ class ViewPhotoVC: UIViewController {
         self.tableView.separatorColor = UIColor.MKColor.Teal
         self.header = UIView(frame: CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.y, width: self.view.frame.size.width, height: 0))
         UserHeaderView(image: image, height: headerViewHeight, inView: tableView, nav:self.navigationController, imgURL: imgURL)
-        var img = images[0]
-        links = [("",""),("Göni link", img.image_url), ("HTML","<a href=\"\(img.image_url)\"><img src=\"\(img.image_url)\"/></a>"), ("Markdown","[![image](\(img.image_url))](\(img.image_url))"),("bbcode","[url=\(img.image_url)][img]\(img.image_url)[/img][/url]")]
+        let img = images[0]
+        links = [["":""],["Göni link": img.image_url], ["HTML":"<a href=\"\(img.image_url)\"><img src=\"\(img.image_url)\"/></a>"], ["Markdown":"[![image](\(img.image_url))](\(img.image_url))"],["bbcode":"[url=\(img.image_url)][img]\(img.image_url)[/img][/url]"]]
         
         self.view.addSubview(header)
         
@@ -93,11 +93,23 @@ class ViewPhotoVC: UIViewController {
             activityItems: [firstActivityItem, secondActivityItem, self.image], applicationActivities: nil)
         
         // This lines is for the popover you need to show in iPad
-        activityViewController.popoverPresentationController?.sourceView = (sender as UIButton)
+        if #available(iOS 8.0, *) {
+            activityViewController.popoverPresentationController?.sourceView = (sender as UIButton)
+        } else {
+            // Fallback on earlier versions
+        }
         
         // This line remove the arrow of the popover to show in iPad
-        activityViewController.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection.allZeros
-        activityViewController.popoverPresentationController?.sourceRect = CGRect(x: 150, y: 150, width: 0, height: 0)
+        if #available(iOS 8.0, *) {
+            activityViewController.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection()
+        } else {
+            // Fallback on earlier versions
+        }
+        if #available(iOS 8.0, *) {
+            activityViewController.popoverPresentationController?.sourceRect = CGRect(x: 150, y: 150, width: 0, height: 0)
+        } else {
+            // Fallback on earlier versions
+        }
         
         // Anything you want to exclude
         activityViewController.excludedActivityTypes = [
@@ -123,20 +135,22 @@ extension ViewPhotoVC: UITableViewDataSource, UITableViewDelegate, UITextFieldDe
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell:UITableViewCell!
-        var selectedBack = UIView();
+        let selectedBack = UIView();
         selectedBack.backgroundColor = UIColor(hex: 0x9E9E9E, alpha: 0.1)
         
         if(indexPath.row == 0) {
             if let cellR = tableView.dequeueReusableCellWithIdentifier("Cell") as? ViewPhotoCell {
-                var time = NSTimeInterval(images[0].timestamp)
+                let time = NSTimeInterval(images[0].timestamp)
                 cellR.download.text = "\(NSDate(timeIntervalSince1970: time).relativeTime)"
                 cell = cellR
             }
         }else{
             if let cellR = tableView.dequeueReusableCellWithIdentifier("CellLinks") as? ViewPhotoCellLinks {
-                cellR.titleLbl.text = links[indexPath.row].0
-                cellR.link.text = links[indexPath.row].1
-                var tapRecognizer = UITapGestureRecognizer(target: self, action: Selector("copyTapped"))
+                var first = [String](links[indexPath.row].keys)
+                var second = [String](links[indexPath.row].values)
+                cellR.titleLbl.text = first[0]
+                cellR.link.text = second[0]
+                let tapRecognizer = UITapGestureRecognizer(target: self, action: Selector("copyTapped"))
                 cellR.link.addGestureRecognizer(tapRecognizer)
                 
                 cell = cellR
@@ -148,7 +162,7 @@ extension ViewPhotoVC: UITableViewDataSource, UITableViewDelegate, UITextFieldDe
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if (indexPath.row == 0) {
-            var selectedCell = self.tableView.cellForRowAtIndexPath(indexPath) as? ViewPhotoCell
+            let selectedCell = self.tableView.cellForRowAtIndexPath(indexPath) as? ViewPhotoCell
             selectedCell?.activityIndicator.startAnimating()
             selectedCell?.timeIcon.hidden = true
             
@@ -179,7 +193,7 @@ extension ViewPhotoVC: UITableViewDataSource, UITableViewDelegate, UITextFieldDe
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        var offset =  scrollView.contentOffset.y
+       _ =  scrollView.contentOffset.y
         //animationForScroll(offset)
     }
     
@@ -189,11 +203,11 @@ extension ViewPhotoVC: UITableViewDataSource, UITableViewDelegate, UITextFieldDe
         var headerTransform = CATransform3DIdentity
         var avatarTransform = CATransform3DIdentity
        
-        var view = self.tableView.viewWithTag(101)
+        _ = self.tableView.viewWithTag(101)
         
         if (offset < 0) {
-            var headerScaleFactor = -(offset) / self.header.bounds.size.height
-            var headerSizevariation = ((self.header.bounds.size.height * (1.0 + headerScaleFactor)) - self.header.bounds.size.height) / 2.0
+            let headerScaleFactor = -(offset) / self.header.bounds.size.height
+            let headerSizevariation = ((self.header.bounds.size.height * (1.0 + headerScaleFactor)) - self.header.bounds.size.height) / 2.0
             headerTransform = CATransform3DTranslate(headerTransform, 0, headerSizevariation, 0)
             headerTransform = CATransform3DScale(headerTransform, 1.0, headerScaleFactor, 1.0 + headerScaleFactor)
             
@@ -201,8 +215,8 @@ extension ViewPhotoVC: UITableViewDataSource, UITableViewDelegate, UITextFieldDe
             
         }else{
             headerTransform = CATransform3DTranslate(headerTransform, 0, max(-offset_HeaderStop, -offset), 0)
-            var buttonScaleFactor = (min(offset_HeaderStop, offset)) / self.share.bounds.size.height / 1.4
-            var buttonSizeVariation = ((self.share.bounds.size.height * (1.0 + buttonScaleFactor)) - self.share.bounds.size.height) / 2.0
+            let buttonScaleFactor = (min(offset_HeaderStop, offset)) / self.share.bounds.size.height / 1.4
+            let buttonSizeVariation = ((self.share.bounds.size.height * (1.0 + buttonScaleFactor)) - self.share.bounds.size.height) / 2.0
             avatarTransform = CATransform3DTranslate(avatarTransform, 0, buttonSizeVariation, 0)
             avatarTransform = CATransform3DScale(avatarTransform, 1.0 - buttonScaleFactor, 1.0 - buttonScaleFactor, 0)
             

@@ -44,7 +44,7 @@ class MyPhotoVC: UIViewController, UIScrollViewDelegate, UINavigationControllerD
         tabBar?.tintColor = UIColor.whiteColor()
         floatingBtn.tintColor = UIColor.whiteColor()
         navigationItem.title = "Ýüklenenler"
-        var exampleImage = UIImage(named: "ic_add_image")?.imageWithRenderingMode(.AlwaysTemplate)
+        let exampleImage = UIImage(named: "ic_add_image")?.imageWithRenderingMode(.AlwaysTemplate)
         floatingBtn.addTarget(self, action: Selector("selectMultipleImage:"), forControlEvents: .TouchUpInside)
         floatingBtn.setImage(exampleImage, forState: UIControlState.Normal)
         floatingBtn.tintColor = UIColor.whiteColor()
@@ -62,8 +62,8 @@ class MyPhotoVC: UIViewController, UIScrollViewDelegate, UINavigationControllerD
         })
         
         self.collectionView.nowRefresh({ () -> Void in
-            delay(2.0, { () -> () in})
-            delay(2.0, { () -> () in
+            delay(2.0, closure: { () -> () in})
+            delay(2.0, closure: { () -> () in
                 self.getMyPhoto()
             })
         })
@@ -111,23 +111,21 @@ class MyPhotoVC: UIViewController, UIScrollViewDelegate, UINavigationControllerD
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
         
-        var heightOfTabBar = self.tabBarController?.tabBar.frame.height
+        let heightOfTabBar = self.tabBarController?.tabBar.frame.height
         
         let currentOffset = scrollView.contentOffset.y
-        let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
-        let deltaOffset = maximumOffset - currentOffset
-        
+
         var frame: CGRect = self.navigationController!.navigationBar.frame
         var frameOfTabBar: CGRect = self.tabBarController!.tabBar.frame
-        var size:CGFloat = frame.size.height - 21
+        let size:CGFloat = frame.size.height - 21
         
-        var sizeT:CGFloat = CGFloat(bounds.height)
+        let sizeT:CGFloat = CGFloat(bounds.height)
         
-        var framePercentageHidden:CGFloat = ((20 - frame.origin.y) / (frame.size.height - 1))
-        var scrollOffset:CGFloat = scrollView.contentOffset.y
-        var scrollDiff:CGFloat = scrollOffset - self.previousScrollViewYOffset
-        var scrollHeight:CGFloat = scrollView.frame.size.height;
-        var scrollContentSizeHeight:CGFloat = scrollView.contentSize.height + scrollView.contentInset.bottom
+        let framePercentageHidden:CGFloat = ((20 - frame.origin.y) / (frame.size.height - 1))
+        let scrollOffset:CGFloat = scrollView.contentOffset.y
+        let scrollDiff:CGFloat = scrollOffset - self.previousScrollViewYOffset
+        let scrollHeight:CGFloat = scrollView.frame.size.height;
+        let scrollContentSizeHeight:CGFloat = scrollView.contentSize.height + scrollView.contentInset.bottom
         
         if (scrollOffset <= -scrollView.contentInset.top) {
             frame.origin.y = 20;
@@ -177,10 +175,10 @@ class MyPhotoVC: UIViewController, UIScrollViewDelegate, UINavigationControllerD
     }
     
     func stoppedScrolling(){
-        var frame = self.navigationController?.navigationBar.frame
+        let frame = self.navigationController?.navigationBar.frame
         self.tabBarController?.tabBar.frame.origin.y = CGFloat(bounds.height) - self.tabBarController!.tabBar.frame.height
         if(frame?.origin.y < 20){
-            var height = frame?.size.height
+            let height = frame?.size.height
             self.animateNavBarTo(height! - 24)
         }
     }
@@ -194,7 +192,7 @@ class MyPhotoVC: UIViewController, UIScrollViewDelegate, UINavigationControllerD
     func animateNavBarTo(y: CGFloat){
         UIView.animateWithDuration(0.2, animations: {
             var frame = self.navigationController?.navigationBar.frame
-            var alpha: CGFloat = (frame?.origin.y >= y ? 0 : 1)
+            let alpha: CGFloat = (frame?.origin.y >= y ? 0 : 1)
             frame?.origin.y = y
             self.navigationController?.navigationBar.frame = frame!
             
@@ -204,7 +202,7 @@ class MyPhotoVC: UIViewController, UIScrollViewDelegate, UINavigationControllerD
     
     func selectMultipleImage(sender:UIButton) {
         
-        var elcPikcer = ELCImagePickerController()
+        let elcPikcer = ELCImagePickerController()
         elcPikcer.maximumImagesCount = 6; //Set the maximum number of images to select, defaults to 4
         elcPikcer.imagePickerDelegate = self;
         
@@ -220,17 +218,16 @@ extension MyPhotoVC: ELCImagePickerControllerDelegate {
         for dictionary in info {
             let imageURL = dictionary[UIImagePickerControllerReferenceURL] as! NSURL
             
-            let imageName = "\(i)-\(imageURL.path!.lastPathComponent)"
-            let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first as! String
-            var localPath = documentDirectory.stringByAppendingPathComponent(imageName)
+            let imageName = "\(i)-\((imageURL.path! as NSString).lastPathComponent)"
+            let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first
+            let localPath = ("\(documentDirectory!)" as NSString).stringByAppendingPathComponent(imageName)
             
             
             let image = dictionary[UIImagePickerControllerOriginalImage] as! UIImage
             let data = UIImageJPEGRepresentation(image, 0.1)
-            data.writeToFile(localPath, atomically: true)
-            
-            let imageData = NSData(contentsOfFile: localPath)!
-            self.photoURLs.append(NSURL(fileURLWithPath: localPath)!)
+            data!.writeToFile(localPath, atomically: true)
+
+            self.photoURLs.append(NSURL(fileURLWithPath: localPath))
             names.append("\(i)_image")
             i++
         }
@@ -259,12 +256,12 @@ extension MyPhotoVC: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! PhotoCollectionViewCell
-        var image = self.images[indexPath.row]
+        let image = self.images[indexPath.row]
         
         cell.cellImage.setImageWithURL(NSURL(string: image.image_url), usingActivityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
         var title = image.image.componentsSeparatedByString(".")
         cell.cellTitle.text = (title.count > 0) ? title[0] : ""
-        var time: NSTimeInterval = NSTimeInterval(image.timestamp)
+        let time: NSTimeInterval = NSTimeInterval(image.timestamp)
         cell.cellDate.text = "\(NSDate(timeIntervalSince1970: time).relativeTime)"
         return cell
     }
@@ -273,8 +270,7 @@ extension MyPhotoVC: UICollectionViewDataSource, UICollectionViewDelegate {
         self.stoppedScrolling()
         
         if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? PhotoCollectionViewCell {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            var viewPhoto = self.storyboard?.instantiateViewControllerWithIdentifier("ViewPhotoVC") as! ViewPhotoVC
+            let viewPhoto = self.storyboard?.instantiateViewControllerWithIdentifier("ViewPhotoVC") as! ViewPhotoVC
             viewPhoto.image = cell.cellImage.image
             viewPhoto.images = [images[indexPath.row]]
             viewPhoto.imgURL = NSURL(string: self.images[indexPath.row].image_url)
@@ -288,13 +284,13 @@ extension MyPhotoVC : UICollectionViewDelegateFlowLayout {
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         let targetWidth: CGFloat = (self.collectionView.bounds.width - 2 * 8)
-        var image = self.images[indexPath.row]
-        var cell = NSBundle.mainBundle().loadNibNamed("PhotoCollectionView", owner: self, options: nil)[0] as? PhotoCollectionViewCell
+        let image = self.images[indexPath.row]
+        //var cell = NSBundle.mainBundle().loadNibNamed("PhotoCollectionView", owner: self, options: nil)[0] as? PhotoCollectionViewCell
         
-        var scaleFactor = targetWidth / CGFloat(image.width)
-        var newHeight = CGFloat(image.height) * scaleFactor
-        var newWidth = CGFloat(image.width) * scaleFactor
-        var size = CGSize(width: newWidth, height: newHeight)
+        let scaleFactor = targetWidth / CGFloat(image.width)
+        let newHeight = CGFloat(image.height) * scaleFactor
+        let newWidth = CGFloat(image.width) * scaleFactor
+        let size = CGSize(width: newWidth, height: newHeight)
         
         return size
     }

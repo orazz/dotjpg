@@ -22,7 +22,7 @@ class SelectedImagesForUploadVC: UIViewController {
         self.api = APIController()
         self.api.delegate = self
         
-        var doneBtn = UIBarButtonItem(title: "Ýükle", style: .Plain, target: self, action: Selector("UploadImages"))
+        let doneBtn = UIBarButtonItem(title: "Ýükle", style: .Plain, target: self, action: Selector("UploadImages"))
         self.navigationItem.rightBarButtonItem = doneBtn
     }
     
@@ -31,7 +31,7 @@ class SelectedImagesForUploadVC: UIViewController {
             self.navigationController?.popViewControllerAnimated(true)
         }else{
             self.api.imageUploader(["controller":"image","action":"fileUpload"], fileURLs: self.urls, names: names)
-            var xhAmazing = XHAmazingLoadingView(type: XHAmazingLoadingAnimationType.Skype)
+            let xhAmazing = XHAmazingLoadingView(type: XHAmazingLoadingAnimationType.Skype)
             xhAmazing.loadingTintColor = UIColor.MKColor.Teal
             xhAmazing.backgroundTintColor = UIColor.whiteColor().colorWithAlphaComponent(0.5)
             xhAmazing.frame = self.view.bounds
@@ -60,7 +60,7 @@ extension SelectedImagesForUploadVC: UITableViewDataSource, UITableViewDelegate 
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("Cell") as! SelectedImagesCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell") as! SelectedImagesCell
         
         return cell
     }
@@ -69,18 +69,19 @@ extension SelectedImagesForUploadVC: UITableViewDataSource, UITableViewDelegate 
         if let cellR = cell as? SelectedImagesCell {
             cellR.imageSelected.image = UIImage(data: NSData(contentsOfURL: urls[indexPath.row])!)
             
-            var attr:NSDictionary? = NSFileManager.defaultManager().attributesOfItemAtPath(urls[indexPath.row].path!, error: nil)
+            let attr:NSDictionary? = try? NSFileManager.defaultManager().attributesOfItemAtPath(urls[indexPath.row].path!)
             
             if let _attr = attr {
-                var size:Double = (Double(_attr.fileSize())/1024)
+                let size:Double = (Double(_attr.fileSize())/1024)
                 cellR.imageSize.text = "Suratyň ölçegi: " + size.format(".2") + " KB."
                 cellR.imageFormat.text = "Suratyň görnüşi: \(urls[indexPath.row].pathExtension!)"
             }
         }
     }
     
-    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
-        let delete = UITableViewRowAction(style: .Normal, title: "poz") { action, index in
+    @available(iOS 8.0, *)
+    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        let delete = UITableViewRowAction(style: .Normal, title: "aýyr") { action, index in
             self.urls.removeAtIndex(indexPath.row)
             self.names.removeAtIndex(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
@@ -101,7 +102,7 @@ class SelectedImagesCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     

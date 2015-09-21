@@ -32,11 +32,11 @@ extension UINavigationController {
         var rect = startFrame
         if(rect == CGRectNull){
             
-            rect = CGRectMake(self.visibleViewController.view.frame.size.width, self.visibleViewController.view.frame.size.height/2, 0, 0)
+            rect = CGRectMake(self.visibleViewController!.view.frame.size.width, self.visibleViewController!.view.frame.size.height/2, 0, 0)
         }
         
       
-       var animatorDirector:AAPTransactionDirector?=AAPTransactionDirector();
+       let animatorDirector:AAPTransactionDirector?=AAPTransactionDirector();
         animatorDirector?.duration=duration
         
     
@@ -47,7 +47,7 @@ extension UINavigationController {
             let fromViewController = transactionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)
             let containerView = transactionContext.containerView()
             
-            containerView.insertSubview(toViewController!.view, aboveSubview: fromViewController!.view)
+            containerView!.insertSubview(toViewController!.view, aboveSubview: fromViewController!.view)
 
             toViewController?.view .radialAppireanceWithStartFrame(rect, duration: animationTime, complitBlock: { () -> Void in
                 
@@ -78,11 +78,11 @@ extension UINavigationController {
         var rect = startFrame
         if(rect == CGRectNull){
             
-            rect = CGRectMake(0, self.visibleViewController.view.frame.size.height/2, 0, 0)
+            rect = CGRectMake(0, self.visibleViewController!.view.frame.size.height/2, 0, 0)
         }
         
         
-        var animatorDirector=AAPTransactionDirector();
+        let animatorDirector=AAPTransactionDirector();
         animatorDirector.duration=duration
         self.delegate=animatorDirector;
         animatorDirector.animationBlock={(transactionContext:UIViewControllerContextTransitioning, animationTime: CGFloat ,completion:()->Void)->Void in
@@ -91,7 +91,7 @@ extension UINavigationController {
             let fromViewController = transactionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)
             let containerView = transactionContext.containerView()
             
-            containerView.insertSubview(toViewController!.view, aboveSubview: fromViewController!.view)
+            containerView!.insertSubview(toViewController!.view, aboveSubview: fromViewController!.view)
             
             toViewController?.view .radialAppireanceWithStartFrame(rect, duration: animationTime, complitBlock: { () -> Void in
                 completion();
@@ -132,7 +132,7 @@ extension UINavigationController {
             
             if self.respondsToSelector(Selector("interactivePopGestureRecognizer")) {
                 
-                self.interactivePopGestureRecognizer.enabled = false
+                self.interactivePopGestureRecognizer!.enabled = false
             }
             
             let  panGesture = UIScreenEdgePanGestureRecognizer(target: self, action: Selector("screenPan:"))
@@ -197,7 +197,7 @@ extension UINavigationController {
             
             self.popViewControllerAnimated(true)
               self.delegate=nil
-            StaticStruct.d =  sqrt(pow(self.visibleViewController.view.frame.size.width, 2)+pow(self.visibleViewController.view.frame.size.height, 2) )*2
+            StaticStruct.d =  sqrt(pow(self.visibleViewController!.view.frame.size.width, 2)+pow(self.visibleViewController!.view.frame.size.height, 2) )*2
             
             StaticStruct.firstTouch = location
             
@@ -210,7 +210,7 @@ extension UINavigationController {
                 let fromViewController = transactionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)
                 let containerView = transactionContext.containerView()
                 
-                containerView.insertSubview(toViewController!.view, aboveSubview: fromViewController!.view)
+                containerView!.insertSubview(toViewController!.view, aboveSubview: fromViewController!.view)
                 
                 let maskLayer = CAShapeLayer()
                 let maskRect = CGRectMake(location.x-location.x/2, location.y-location.x/2, 0, 0);

@@ -37,15 +37,15 @@ class UserHeaderView: UIView {
         }else{
             self.imageView.setImageWithURL(imgURL, usingActivityIndicatorStyle: .Gray)
         }
-        var view = UIView(frame: CGRect(x: appFrame.width/3.5, y: 0, width: 0, height: 200))
+        let view = UIView(frame: CGRect(x: appFrame.width/3.5, y: 0, width: 0, height: 200))
         imageView.contentMode = UIViewContentMode.ScaleAspectFill
-        imageView.autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight
+        imageView.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
         imageView.clipsToBounds = true
         imageView.addSubview(view)
         
         self.addSubview(imageView)
         
-        var backBtn = UIButton(frame: CGRectMake(5, 15, 60, 40))
+        let backBtn = UIButton(frame: CGRectMake(5, 15, 60, 40))
         backBtn.setTitle("❮ yza", forState: .Normal)
         backBtn.titleLabel?.font = UIFont(name: "Hevletica", size: 14.0)
         backBtn.addTarget(self, action: Selector("back:"), forControlEvents: .TouchUpInside)
@@ -53,7 +53,7 @@ class UserHeaderView: UIView {
         inView.addSubview(self)
         inView.contentInset = UIEdgeInsetsMake(defaultHeight, 0.0, 0.0, 0.0)
         inView.addObserver(self, forKeyPath: "contentOffset", options: NSKeyValueObservingOptions.New, context: nil)
-        var tapToView = UITapGestureRecognizer(target: self, action: Selector("viewImage"))
+        let tapToView = UITapGestureRecognizer(target: self, action: Selector("viewImage"))
         self.addGestureRecognizer(tapToView)
     }
     
@@ -67,20 +67,21 @@ class UserHeaderView: UIView {
     }
     
     func back(sender:UIButton) {
-        nav!.radialPopViewController(duration: 0.3, startFrame: sender.frame, transitionCompletion: nil)
+        nav!.radialPopViewController(0.3, startFrame: sender.frame, transitionCompletion: nil)
     }
     
     deinit {
         self.inView.removeObserver(self, forKeyPath: "contentOffset")
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
+    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         if keyPath == "contentOffset" {
-            let offset: CGPoint! = change[NSKeyValueChangeNewKey]?.CGPointValue()
+            
+            let offset: CGPoint! = change?[NSKeyValueChangeNewKey]?.CGPointValue
             self.frame.origin.y = offset.y
             self.frame.size.height = offset.y * -1
         }

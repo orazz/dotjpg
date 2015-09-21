@@ -21,8 +21,8 @@ class APIController {
     private(set) var token: String
     
     init() {
-        token = UIDevice.currentDevice().identifierForVendor.UUIDString
-        var url:NSURL = NSURL(string:Config.SERVER)!
+        token = UIDevice.currentDevice().identifierForVendor!.UUIDString
+        let url:NSURL = NSURL(string:Config.SERVER)!
         manager = AFHTTPRequestOperationManager(baseURL: url)
         manager.responseSerializer = AFHTTPResponseSerializer()
         manager.responseSerializer.acceptableContentTypes = NSSet(objects: "application/json") as Set<NSObject>
@@ -31,22 +31,25 @@ class APIController {
     
     func clientRequest(params: Dictionary<String, AnyObject>, objectForKey: String!) {
         var parametrs = params
-        var error: NSError?
         parametrs["session_id"] = token
 
         manager.POST("", parameters: parametrs, success: {(operation: AFHTTPRequestOperation!,
             response: AnyObject!) in
             if let data = response as? NSData {
-                if let json = NSJSONSerialization.JSONObjectWithData(data, options: .MutableLeaves, error:&error) as? NSDictionary {
-                    if objectForKey != nil {
-                        if let results = json.valueForKey(objectForKey) as? NSArray {
-                           self.delegate?.success(true, resultsArr: results, results: nil)
+                do {
+                    if let json = try NSJSONSerialization.JSONObjectWithData(data, options: .MutableLeaves) as? NSDictionary {
+                        if objectForKey != nil {
+                            if let results = json.valueForKey(objectForKey) as? NSArray {
+                               self.delegate?.success(true, resultsArr: results, results: nil)
+                            }
                         }
                     }
+                }catch{
+                    
                 }
             }
             }, failure: {(operation:AFHTTPRequestOperation!, error:NSError!) in
-                println("ERROR:"+error.localizedDescription)
+                print("ERROR:"+error.localizedDescription)
                 self.delegate?.success(false, resultsArr: nil, results: nil)
         })
     }
@@ -56,19 +59,27 @@ class APIController {
         parametrs["session_id"] = token
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
 
-        manager.POST("", parameters: parametrs,
+       manager.POST("", parameters: parametrs,
             constructingBodyWithBlock: { (data: AFMultipartFormData!) in
                 for var i = 0; i < fileURLs.count; i++ {
-
-                    var res = data.appendPartWithFileURL(fileURLs[i], name: "images[\(names[i])]", fileName: names[i], mimeType: "image/jpeg", error: nil)
-                    
+                    do {
+                    _ = try data.appendPartWithFileURL(fileURLs[i], name: "images[\(names[i])]", fileName: names[i], mimeType: "image/jpeg")
+                    }catch{
+                        
+                    }
                     // println("was file added properly to the body? \(res) ")
                 }
             },
             success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) in
                 //println("Yes thies was a success")
-                    var json = NSJSONSerialization.JSONObjectWithData(response as! NSData, options: .MutableLeaves, error: &self.err) as? NSDictionary
+                
+                do {
+                    let json = try NSJSONSerialization.JSONObjectWithData(response as! NSData, options: .MutableLeaves) as? NSDictionary
                     self.delegate?.success(true, resultsArr: nil, results: json)
+                }catch{
+                    
+                }
+                
                     UIApplication.sharedApplication().networkActivityIndicatorVisible = false
   
             },
