@@ -9,6 +9,10 @@
 import Foundation
 import UIKit
 
+protocol SelectedImagesDelegate {
+    func uploded(update: Bool)
+}
+
 class SelectedImagesForUploadVC: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
@@ -16,6 +20,7 @@ class SelectedImagesForUploadVC: UIViewController {
     var names = [String]()
     var urls = [NSURL]()
     var api: APIController!
+    var delegate: SelectedImagesDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +50,7 @@ class SelectedImagesForUploadVC: UIViewController {
 extension SelectedImagesForUploadVC: APIProtocol {
     func success(success: Bool, resultsArr: NSArray?, results: NSDictionary?) {
         if success {
+            self.delegate?.uploded(true)
             self.navigationController?.popViewControllerAnimated(true)
             self.tabBarController?.selectedIndex = 1
             SweetAlert().showAlert("Üstünlikli!", subTitle: "Suratyňyz üstünlikli ýüklenildi", style: AlertStyle.Success)

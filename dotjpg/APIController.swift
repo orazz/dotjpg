@@ -51,6 +51,8 @@ class APIController {
             }, failure: {(operation:AFHTTPRequestOperation!, error:NSError!) in
                 print("ERROR:"+error.localizedDescription)
                 self.delegate?.success(false, resultsArr: nil, results: nil)
+                let alert = UIAlertView(title: "Internet ýok", message: "Ýene bir az wagtdan synanşyp görüň", delegate: self, cancelButtonTitle: "OK")
+                alert.show()
         })
     }
     
@@ -86,6 +88,8 @@ class APIController {
             failure: { (operation: AFHTTPRequestOperation!, error: NSError!) in
                 //println("We got an error here.. \(error.localizedDescription)")
                 self.delegate?.success(false, resultsArr: nil, results: nil)
+                let alert = UIAlertView(title: "Internet ýok", message: "Ýene bir az wagtdan synanşyp görüň", delegate: self, cancelButtonTitle: "OK")
+                alert.show()
                 UIApplication.sharedApplication().networkActivityIndicatorVisible = false
         })
     }

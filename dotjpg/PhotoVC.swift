@@ -35,7 +35,7 @@ class PhotoVC: UIViewController, UIScrollViewDelegate, UINavigationControllerDel
         getPhoto()
         newPhoto.setup()
         activityIndicator.startAnimating()
-
+        self.collectionView.hidden = true
         let cellWidth = (UIScreen.mainScreen().bounds.width) - 15
         let cellLayout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
         cellLayout.itemSize = CGSize(width: cellWidth, height: cellWidth)
@@ -291,6 +291,7 @@ extension PhotoVC: APIProtocol {
     func success(success: Bool, resultsArr:NSArray?, results:NSDictionary?) {
         if success {
             if resultsArr?.count > 0 {
+                self.collectionView.hidden = false
                 if isRefresh {
                     self.images = Images.ImagesWithJSON(resultsArr!)
                     self.pagination = 1

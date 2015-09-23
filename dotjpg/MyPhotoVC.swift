@@ -10,6 +10,8 @@ import UIKit
 
 class MyPhotoVC: UIViewController, UIScrollViewDelegate, UINavigationControllerDelegate {
 
+    @IBOutlet weak var notFound: UILabel!
+    @IBOutlet weak var loadingView: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var floatingBtn: FloatingButton!
     @IBOutlet weak var activityIndicator: KMActivityIndicator!
@@ -37,7 +39,7 @@ class MyPhotoVC: UIViewController, UIScrollViewDelegate, UINavigationControllerD
         let cellWidth = (UIScreen.mainScreen().bounds.width) - 15
         let cellLayout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
         cellLayout.itemSize = CGSize(width: cellWidth, height: cellWidth)
-        
+        collectionView.hidden = true
         collectionView!.registerNib(UINib(nibName: "PhotoCollectionView", bundle: NSBundle.mainBundle()), forCellWithReuseIdentifier: reuseIdentifier)
         let tabBar = self.tabBarController?.tabBar;
         tabBar?.barTintColor = UIColor.MKColor.Teal
@@ -76,6 +78,13 @@ class MyPhotoVC: UIViewController, UIScrollViewDelegate, UINavigationControllerD
         self.api = APIController()
         self.api.delegate = self
         self.api.clientRequest(["controller":"image", "action":"getAll", "page":0], objectForKey: "data")
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        if self.images.count <= 0 {
+            getMyPhoto()
+        }
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -301,6 +310,7 @@ extension MyPhotoVC: APIProtocol {
     func success(success: Bool, resultsArr:NSArray?, results:NSDictionary?) {
         if success {
             if resultsArr?.count > 0 {
+                self.collectionView.hidden = false
                 if isRefresh {
                     self.images = Images.ImagesWithJSON(resultsArr!)
                     self.pagination = 1
@@ -317,6 +327,7 @@ extension MyPhotoVC: APIProtocol {
                 weakSelf?.collectionView.doneRefresh()
                 collectionView.hide(false)
             }else{
+                self.loadingView.hidden = true
                 loadMoreStatus = true
                 weakSelf?.collectionView.doneRefresh()
                 //weakSelf?.collectionView.endLoadMoreData()
@@ -325,6 +336,7 @@ extension MyPhotoVC: APIProtocol {
                 loadinLbl.hidden = false
             }
         }else{
+            self.loadingView.hidden = true
             self.images = []
             collectionView.reloadData()
             collectionView.hide(true)
@@ -332,5 +344,12 @@ extension MyPhotoVC: APIProtocol {
             loadinLbl.hidden = false
         }
 
+    }
+}
+extension MyPhotoVC: SelectedImagesDelegate {
+    func uploded(update: Bool) {
+        if update {
+             delay(3, closure: ({self.getMyPhoto()}))
+        }
     }
 }

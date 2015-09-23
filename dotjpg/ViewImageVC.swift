@@ -18,11 +18,9 @@ class ViewImageVC: UIViewController, UIScrollViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        imageView = UIImageView(image: UIImage(named: "black"))
+        imageView = UIImageView(image: UIImage(named: "black.png"))
         if image != nil {
             imageView = UIImageView(image: image)
-        }else{
-            imageView.setImageWithURL(imgURL, placeholderImage: UIImage(named: "black"), usingActivityIndicatorStyle: .White)
         }
         
         scrollView = UIScrollView(frame: view.bounds)
@@ -35,10 +33,27 @@ class ViewImageVC: UIViewController, UIScrollViewDelegate {
         scrollView.contentOffset = CGPoint(x: 1000, y: 450)
         scrollView.addSubview(imageView)
         view.addSubview(scrollView)
+        imageView.tag = 101
+        scrollView.tag = 102
         scrollView.delegate = self
-        
-        setZoomScale()
-        setupGestureRecognizer()
+        if image != nil {
+            setZoomScale()
+            setupGestureRecognizer()
+        }
+        if image == nil {
+            imageView.setImageWithURL(imgURL, placeholderImage:  UIImage(named: "black.png"), completed: {(_)in
+                self.view.viewWithTag(101)?.removeFromSuperview()
+                self.view.viewWithTag(102)?.removeFromSuperview()
+                self.imageView = UIImageView(image: self.imageView.image)
+                self.scrollView.contentSize = self.imageView.bounds.size
+                self.scrollView.addSubview(self.imageView)
+                self.view.addSubview(self.scrollView)
+                self.setZoomScale()
+                self.setupGestureRecognizer()
+                self.scrollView.layoutSubviews()
+                
+                }, usingActivityIndicatorStyle: .White)
+        }
     }
     
     override func viewDidAppear(animated: Bool) {
