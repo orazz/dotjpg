@@ -22,6 +22,7 @@ class ViewPhotoVC: UIViewController {
     private (set)var headerImageView: UIImageView!
     
     var share: FloatingButton!
+    var report: FloatingButton!
     var offset_HeaderStop:CGFloat = 40.0;
     var offset_B_LabelHeader:CGFloat = 95.0;
     var distance_W_LabelHeader:CGFloat = 35.0;
@@ -69,7 +70,6 @@ class ViewPhotoVC: UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        
         super.viewWillAppear(animated)
         self.tabBarController?.tabBar.hidden = true
         self.navigationController?.navigationBar.hidden = true
@@ -81,10 +81,6 @@ class ViewPhotoVC: UIViewController {
         self.navigationController?.navigationBar.hidden = false
     }
     
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return UIStatusBarStyle.Default
-    }
-    
     func shareImage(sender: UIButton) {
         let firstActivityItem = "Suratlaryňyzy dotjpg.co bilen paýlaş"
         let secondActivityItem : NSURL = NSURL(string: self.images[0].image_url)!
@@ -92,25 +88,11 @@ class ViewPhotoVC: UIViewController {
         let activityViewController : UIActivityViewController = UIActivityViewController(
             activityItems: [firstActivityItem, secondActivityItem, self.image], applicationActivities: nil)
         
-        // This lines is for the popover you need to show in iPad
-        if #available(iOS 8.0, *) {
-            activityViewController.popoverPresentationController?.sourceView = (sender as UIButton)
-        } else {
-            // Fallback on earlier versions
-        }
-        
-        // This line remove the arrow of the popover to show in iPad
-        if #available(iOS 8.0, *) {
-            activityViewController.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection()
-        } else {
-            // Fallback on earlier versions
-        }
-        if #available(iOS 8.0, *) {
-            activityViewController.popoverPresentationController?.sourceRect = CGRect(x: 150, y: 150, width: 0, height: 0)
-        } else {
-            // Fallback on earlier versions
-        }
-        
+
+        activityViewController.popoverPresentationController?.sourceView = (sender as UIButton)
+        activityViewController.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection()
+        activityViewController.popoverPresentationController?.sourceRect = CGRect(x: 150, y: 150, width: 0, height: 0)
+
         // Anything you want to exclude
         activityViewController.excludedActivityTypes = [
             UIActivityTypePostToWeibo,
@@ -124,6 +106,10 @@ class ViewPhotoVC: UIViewController {
         ]
         
         self.presentViewController(activityViewController, animated: true, completion: nil)
+    }
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return true
     }
         
 }

@@ -71,6 +71,11 @@ class PhotoVC: UIViewController, UIScrollViewDelegate, UINavigationControllerDel
         self.collectionView.hide(true)
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: UIStatusBarAnimation.None)
+    }
+    
     override func viewDidDisappear(animated: Bool) {
         self.tabBarController?.tabBar.frame.origin.y = CGFloat(bounds.height) - self.tabBarController!.tabBar.frame.height
         var frame: CGRect = self.navigationController!.navigationBar.frame
@@ -200,6 +205,14 @@ class PhotoVC: UIViewController, UIScrollViewDelegate, UINavigationControllerDel
         elcPikcer.maximumImagesCount = 6; //Set the maximum number of images to select, defaults to 4
         elcPikcer.imagePickerDelegate = self;
         self.presentViewController(elcPikcer, animated: true, completion: nil)
+    }
+    
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return UIStatusBarStyle.Default
+    }
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return false
     }
 }
 

@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		8E2EFC351B9082E1008EAFF9 /* launch.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E2EFC341B9082E1008EAFF9 /* launch.png */; };
-		8E2EFC391B908467008EAFF9 /* start.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E2EFC381B908467008EAFF9 /* start.png */; };
 		8E4406B41B7CAD150070A995 /* SelectedImagesForUploadVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4406B31B7CAD150070A995 /* SelectedImagesForUploadVC.swift */; };
 		8E4548391B7A06480059FCF6 /* JLToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4548361B7A06480059FCF6 /* JLToast.swift */; };
 		8E45483A1B7A06480059FCF6 /* JLToastCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4548371B7A06480059FCF6 /* JLToastCenter.swift */; };
@@ -58,7 +57,6 @@
 		2A5B85507698287FA9EECF0C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		2D80D78910ACC5C2A314C131 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E2EFC341B9082E1008EAFF9 /* launch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launch.png; sourceTree = "<group>"; };
-		8E2EFC381B908467008EAFF9 /* start.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = start.png; sourceTree = "<group>"; };
 		8E4406B31B7CAD150070A995 /* SelectedImagesForUploadVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedImagesForUploadVC.swift; sourceTree = "<group>"; };
 		8E4548361B7A06480059FCF6 /* JLToast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JLToast.swift; sourceTree = "<group>"; };
 		8E4548371B7A06480059FCF6 /* JLToastCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JLToastCenter.swift; sourceTree = "<group>"; };
@@ -147,7 +145,6 @@
 				8ED02E871B6B93F70056EA4F /* Main.storyboard */,
 				8ED02F341B6D1ACB0056EA4F /* PhotoCollectionView.xib */,
 				8ED02E8C1B6B93F70056EA4F /* LaunchScreen.xib */,
-				8E2EFC381B908467008EAFF9 /* start.png */,
 				8E98FE8E1BB065D9009777B7 /* black.png */,
 			);
 			name = Views;
@@ -369,7 +366,6 @@
 				8E98FE8F1BB065D9009777B7 /* black.png in Resources */,
 				8EAFAADA1B6EB023006FF5BA /* Images.xcassets in Resources */,
 				8ED02F351B6D1ACB0056EA4F /* PhotoCollectionView.xib in Resources */,
-				8E2EFC391B908467008EAFF9 /* start.png in Resources */,
 				8ED02E8E1B6B93F70056EA4F /* LaunchScreen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -581,7 +577,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = dotjpg/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "tm.orazz.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -597,7 +593,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = dotjpg/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "tm.orazz.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -3,6 +3,10 @@
     {
       "idiom" : "universal",
       "filename" : "Shape.pdf"
+    },
+    {
+      "idiom" : "iphone",
+      "filename" : "Shape-1.pdf"
     }
   ],
   "info" : {

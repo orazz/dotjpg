@@ -526,7 +526,9 @@
         <!--View ImageVC-->
         <scene sceneID="Ogc-s7-1DH">
             <objects>
-                <viewController storyboardIdentifier="ViewImageVC" id="d5y-ho-YwP" customClass="ViewImageVC" customModule="dotjpg" customModuleProvider="target" sceneMemberID="viewController"/>
+                <viewController storyboardIdentifier="ViewImageVC" id="d5y-ho-YwP" customClass="ViewImageVC" customModule="dotjpg" customModuleProvider="target" sceneMemberID="viewController">
+                    <nil key="simulatedStatusBarMetrics"/>
+                </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zsT-V3-B3C" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2829" y="-328"/>

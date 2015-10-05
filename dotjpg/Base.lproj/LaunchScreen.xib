@@ -11,25 +11,39 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="start.png" translatesAutoresizingMaskIntoConstraints="NO" id="6Jq-WO-jLG">
-                    <rect key="frame" x="145" y="196" width="191" height="131"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="start" translatesAutoresizingMaskIntoConstraints="NO" id="6Jq-WO-jLG">
+                    <rect key="frame" x="145" y="174" width="191" height="131"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="191" id="Gvv-3x-4QB"/>
                         <constraint firstAttribute="height" constant="131" id="S84-VZ-Vk6"/>
+                        <constraint firstAttribute="height" constant="131" id="vTk-MD-MxK"/>
                     </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="S84-VZ-Vk6"/>
+                        </mask>
+                    </variation>
                 </imageView>
             </subviews>
             <color key="backgroundColor" red="0.0" green="0.60000002379999995" blue="0.54901963470000004" alpha="1" colorSpace="deviceRGB"/>
             <constraints>
                 <constraint firstItem="6Jq-WO-jLG" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="7vZ-xG-67o"/>
+                <constraint firstItem="6Jq-WO-jLG" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Es1-ML-ed0"/>
                 <constraint firstItem="6Jq-WO-jLG" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="196" id="O4j-De-vQY"/>
+                <constraint firstItem="6Jq-WO-jLG" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="O9j-KN-Pip"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="O4j-De-vQY"/>
+                    <exclude reference="O9j-KN-Pip"/>
+                </mask>
+            </variation>
             <point key="canvasLocation" x="548" y="455"/>
         </view>
     </objects>
     <resources>
-        <image name="start.png" width="300" height="225"/>
+        <image name="start" width="300" height="225"/>
     </resources>
 </document>
