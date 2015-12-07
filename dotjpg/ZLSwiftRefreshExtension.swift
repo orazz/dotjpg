@@ -16,7 +16,7 @@ enum HeaderViewRefreshAnimationStatus{
     case headerViewRefreshPullAnimation, headerViewRefreshLoadingAnimation, headerViewRefreshArrowAnimation
 }
 
-var loadMoreAction: (() -> ()) = {}
+var loadMoreAction: (() -> ())!
 var refreshStatus:RefreshStatus = .Normal
 let animations:CGFloat = 60.0
 var tableViewOriginContentInset:UIEdgeInsets = UIEdgeInsetsZero

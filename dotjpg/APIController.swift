@@ -21,7 +21,7 @@ class APIController {
     private(set) var token: String
     
     init() {
-        token = UIDevice.currentDevice().identifierForVendor!.UUIDString
+        token = UIDevice.currentDevice().identifierForVendor!.UUIDString + UIDevice.currentDevice().identifierForVendor!.UUIDString
         let url:NSURL = NSURL(string:Config.SERVER)!
         manager = AFHTTPRequestOperationManager(baseURL: url)
         manager.responseSerializer = AFHTTPResponseSerializer()
@@ -32,7 +32,6 @@ class APIController {
     func clientRequest(params: Dictionary<String, AnyObject>, objectForKey: String!) {
         var parametrs = params
         parametrs["session_id"] = token
-
         manager.POST("", parameters: parametrs, success: {(operation: AFHTTPRequestOperation!,
             response: AnyObject!) in
             if let data = response as? NSData {
@@ -41,6 +40,8 @@ class APIController {
                         if objectForKey != nil {
                             if let results = json.valueForKey(objectForKey) as? NSArray {
                                self.delegate?.success(true, resultsArr: results, results: nil)
+                            }else{
+                               self.delegate?.success(false, resultsArr: nil, results: nil)
                             }
                         }
                     }
@@ -56,15 +57,17 @@ class APIController {
         })
     }
     
-    func SendReport(url: String, params: Dictionary<String,AnyObject> ) {
+    func SendReport(params: Dictionary<String,AnyObject> ) {
         var parametrs = params
         parametrs["session_id"] = token
+        parametrs["controller"] = "image"
+        parametrs["action"] = "report"
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-        manager.POST(url, parameters: parametrs, success: {(operation:AFHTTPRequestOperation!,response:AnyObject!) in
+        manager.POST("", parameters: parametrs, success: {(operation:AFHTTPRequestOperation!,response:AnyObject!) in
             if let data = response as? NSData {
                 do {
                     if let json = try NSJSONSerialization.JSONObjectWithData(data, options: .MutableLeaves) as? NSDictionary {
-                        if json.valueForKey("status") as? NSString! == "ok" {
+                        if json.valueForKey("success") as? Bool == true {
                             self.delegate?.success(true, resultsArr: nil, results: ["status":"ok"])
                         }
                     }

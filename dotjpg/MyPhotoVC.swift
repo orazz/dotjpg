@@ -33,7 +33,6 @@ class MyPhotoVC: UIViewController, UIScrollViewDelegate, UINavigationControllerD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        getMyPhoto()
         floatingBtn.setup()
         activityIndicator.startAnimating()
         let cellWidth = (UIScreen.mainScreen().bounds.width) - 15

@@ -31,9 +31,9 @@ public class ZLSwiftHeadView: UIView {
         }
     }
     
-    var action: (() -> ()) = {}
-    var nowAction: (() -> ()) = {}
-    private var refreshTempAction:(() -> Void) = {}
+    var action: (() -> ())!
+    var nowAction: (() -> ())!
+    private var refreshTempAction:(() -> Void)!
     
     
     convenience init(action :(() -> ()), frame: CGRect) {

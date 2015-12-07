@@ -125,31 +125,31 @@ class UserHeaderView: UIView {
         
         let spam = UIAlertAction(title: "Spam", style: UIAlertActionStyle.Default, handler: {
             (action:UIAlertAction) -> Void in
-            self.api.SendReport("report_abuse.php", params: ["report_type":"spam","image":self.imageName])
+            self.api.SendReport(["report_type":"spam","image":self.imageName])
         })
         let insult = UIAlertAction(title: "Ahlaksyz surat", style: UIAlertActionStyle.Default, handler: {
             (action:UIAlertAction) -> Void in
-            self.api.SendReport("report_abuse.php", params: ["report_type":"Ahlaksyz mowzuk","image":self.imageName])
+            self.api.SendReport(["report_type":"Ahlaksyz mowzuk","image":self.imageName])
         })
         let narkotik = UIAlertAction(title: "Narkotika ündewi", style: UIAlertActionStyle.Default, handler: {
             (action:UIAlertAction) -> Void in
-            self.api.SendReport("report_abuse.php", params: ["report_type":"Narkotika ündewi","image":self.imageName])
+            self.api.SendReport(["report_type":"Narkotika ündewi","image":self.imageName])
         })
         let porn = UIAlertAction(title: "Çaga pornografiýasy", style: UIAlertActionStyle.Default, handler: {
             (action:UIAlertAction) -> Void in
-            self.api.SendReport("report_abuse.php", params: ["report_type":"Çaga pornografiýasy","image":self.imageName])
+            self.api.SendReport(["report_type":"Çaga pornografiýasy","image":self.imageName])
         })
         let extremism = UIAlertAction(title: "Ekstrimizm öňe sürmek", style: UIAlertActionStyle.Default, handler: {
             (action:UIAlertAction) -> Void in
-            self.api.SendReport("report_abuse.php", params: ["report_type":"Ekstrimizm öňe sürmek","image":self.imageName])
+            self.api.SendReport(["report_type":"Ekstrimizm öňe sürmek","image":self.imageName])
         })
         let yowuz = UIAlertAction(title: "Ýowuzlyk", style: UIAlertActionStyle.Default, handler: {
             (action:UIAlertAction) -> Void in
-            self.api.SendReport("report_abuse.php", params: ["report_type":"Ýowuzlyk","image":self.imageName])
+            self.api.SendReport(["report_type":"Ýowuzlyk","image":self.imageName])
         })
         let kemsidiji = UIAlertAction(title: "Kemsidiji surat", style: UIAlertActionStyle.Default, handler: {
             (action:UIAlertAction) -> Void in
-            self.api.SendReport("report_abuse.php", params: ["report_type":"Kemsidiji mowzuk","image":self.imageName])
+            self.api.SendReport(["report_type":"Kemsidiji mowzuk","image":self.imageName])
         })
         let cancelAction = UIAlertAction(title: "Beset", style: UIAlertActionStyle.Cancel, handler: nil)
         

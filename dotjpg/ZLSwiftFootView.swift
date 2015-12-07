@@ -14,9 +14,9 @@ public class ZLSwiftFootView: UIView {
     var footLabel: UILabel = UILabel()
     public var _bounds = UIScreen.mainScreen().bounds
     
-    var loadMoreAction: (() -> Void) = {}
-    var loadMoreTempAction:(() -> Void) = {}
-    var loadMoreEndTempAction:(() -> Void) = {}
+    var loadMoreAction: (() -> Void)!
+    var loadMoreTempAction:(() -> Void)!
+    var loadMoreEndTempAction:(() -> Void)!
     
     var isEndLoadMore:Bool = false{
         willSet{
