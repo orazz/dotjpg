@@ -93,14 +93,18 @@ class UserHeaderView: UIView {
         }
     }
     
-    func report(sender: UIBarButtonItem){
+    func report(sender: AnyObject){
+        guard let button = sender as? UIView else {
+            return
+        }
         
         let shareMenu = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
         
         if let presentationController = shareMenu.popoverPresentationController {
-            presentationController.barButtonItem = sender
+            presentationController.sourceView = button
+            presentationController.sourceRect = button.bounds
         }
-        
+
         let report = UIAlertAction(title: "Report", style: UIAlertActionStyle.Default, handler: {
             (action:UIAlertAction) -> Void in
             self.reportList(sender)
@@ -111,13 +115,19 @@ class UserHeaderView: UIView {
         shareMenu.addAction(cancelAction)
         
         self.nav.presentViewController(shareMenu, animated: true, completion: nil)
+
     }
     
-    func reportList(sender: UIBarButtonItem){
+    func reportList(sender: AnyObject) {
+        guard let button = sender as? UIView else {
+            return
+        }
+
         let shareMenu = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
         
         if let presentationController = shareMenu.popoverPresentationController {
-            presentationController.barButtonItem = sender
+            presentationController.sourceView = button
+            presentationController.sourceRect = button.bounds
         }
         
         api = APIController()
