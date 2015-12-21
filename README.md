@@ -12,7 +12,7 @@ dotjpg  is an online image sharing community...<br><br>
 
 <pre>
 <code>
-//  VeriMusic
+//  dotjpg
 //
 //  Created by Atakishiyev Orazdurdy on 5/17/15.
 //  Copyright (c) 2015. All rights reserved.
